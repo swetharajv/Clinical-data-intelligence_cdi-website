@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Clinical Data Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FEF9E1',
+            tan: '#E5D0AC',
+            crimson: '#A31D1D',
+            maroon: '#6D2323',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 180px; opacity: 0.45;
+    }
+    .nav-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #A31D1D, #6D2323); border-radius: 2px; }
+    .policy-card { background: white; border: 1.5px solid rgba(229,208,172,0.5); border-radius: 16px; padding: 2rem; margin-bottom: 1.25rem; }
+    .policy-card h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #6D2323; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .policy-card p, .policy-card li { color: rgba(109,35,35,0.7); font-size: 0.875rem; line-height: 1.75; }
+    .policy-card ul { list-style: none; padding: 0; margin: 0.5rem 0 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .policy-card ul li::before { content: '—'; color: #A31D1D; margin-right: 0.5rem; opacity: 0.6; }
+    .policy-card a { color: #A31D1D; font-weight: 500; text-decoration: none; }
+    .policy-card a:hover { text-decoration: underline; }
+    .sub-heading { font-size: 0.8rem; font-weight: 700; color: #6D2323; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1.25rem; margin-bottom: 0.35rem; }
+  </style>
+</head>
+<body class="bg-cream font-sans text-maroon antialiased relative">
+
+<!-- ═══════ NAVBAR ═══════ -->
+<header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="logo.png" alt="CDI Logo" class="h-10 w-auto" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex';" />
+      <div id="logo-fallback" class="hidden items-center gap-2">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#6D2323"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#A31D1D" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-maroon text-lg tracking-tight">CDI</span>
+      </div>
+    </a>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        GDPR Docs
+      </a>
+      <a href="index.html#contact-section" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact
+      </a>
+      <a href="index.html#data-drop" class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        Free Data Audit
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="bg-maroon py-16 lg:py-20 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none opacity-10">
+    <svg width="100%" height="100%"><defs><pattern id="pgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FEF9E1" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#pgrid)"/></svg>
+  </div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <p class="text-tan text-xs font-semibold uppercase tracking-widest mb-4">Legal</p>
+    <h1 class="font-serif text-4xl sm:text-5xl font-bold text-cream mb-4">Privacy Policy</h1>
+    <p class="text-cream/60 text-sm leading-relaxed max-w-lg mx-auto">How Clinical Data Intelligence handles your data — and your clinic's data. Written in plain English.</p>
+  </div>
+</section>
+
+<!-- ═══════ GDPR DOCS BOX ═══════ -->
+<section class="py-8 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white border border-tan/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-sm">
+      <div class="w-12 h-12 bg-crimson/10 rounded-xl flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      </div>
+      <div class="flex-1">
+        <p class="font-semibold text-maroon text-sm mb-1">Legal &amp; GDPR Documentation</p>
+        <p class="text-maroon/60 text-xs leading-relaxed">Download our full compliance pack — Data Processing Agreement (DPA), International Data Transfer Agreement (IDTA), and Data Security &amp; Infrastructure Statement.</p>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="flex-shrink-0 inline-flex items-center gap-2 bg-maroon hover:bg-crimson text-cream text-xs font-semibold px-5 py-2.5 rounded-xl transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        View on Google Drive
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ POLICY CONTENT ═══════ -->
+<section class="pb-20 px-6">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- 1. Who we are -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        Who we are
+      </h2>
+      <p>Clinical Data Intelligence (CDI) is a clinical data consultancy providing data hygiene, formatting, and predictive analytics services to UK private clinics. We are based across India and the United Kingdom.</p>
+      <p class="mt-3">You can reach us at: <a id="who-email-link" href="#">contact&#64;clinicaldataintelligence&#46;uk</a></p>
+    </div>
+
+    <!-- 2. What data we process -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        What data we process
+      </h2>
+      <p>We process only anonymised clinical data exports. We explicitly <strong style="color:#A31D1D;">never</strong> request or handle:</p>
+      <ul>
+        <li>Patient names</li>
+        <li>Email addresses or phone numbers</li>
+        <li>NHS numbers or national identifiers</li>
+        <li>Dates of birth</li>
+        <li>Medical diagnoses or clinical notes</li>
+        <li>Any special category health data</li>
+      </ul>
+      <p>We work with anonymised fields only — typically Patient ID, Treatment Type, Last Visit Date, and appointment or billing codes. Because we never receive personal data as defined by UK GDPR, the files we process do not constitute personal data under the legislation.</p>
+    </div>
+
+    <!-- 3. How we keep data secure -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        How we keep your data secure
+      </h2>
+
+      <p class="sub-heading">Zero local storage</p>
+      <p>We operate a strict zero-local-storage policy. Data is never downloaded to laptops, hard drives, or physical devices. All processing occurs exclusively within secure, browser-based cloud environments.</p>
+
+      <p class="sub-heading">Enterprise-grade encryption</p>
+      <p>All data transfers use HTTPS/TLS encryption in transit. Data is encrypted at rest using AES-256 within Google's enterprise infrastructure.</p>
+
+      <p class="sub-heading">Automatic deletion</p>
+      <p>All client data files are permanently deleted from our systems within 30 days of completing the service. We confirm deletion in writing on request.</p>
+    </div>
+
+    <!-- 4. International data transfers -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        International data transfers
+      </h2>
+      <p>CDI processes data across India and the United Kingdom. Where data is transferred internationally, we operate under an International Data Transfer Agreement (IDTA) issued by the UK Information Commissioner's Office (ICO). A copy is available in our GDPR documentation above.</p>
+      <p class="mt-3">Because we work exclusively with anonymised data, the UK GDPR transfer restrictions do not apply to the data itself — however we maintain these safeguards as a matter of best practice and transparency.</p>
+    </div>
+
+    <!-- 5. Website visitors -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        Website visitors
+      </h2>
+      <p>When you visit this website, standard web analytics (Google Analytics) may collect anonymised data about your visit — such as browser type, pages viewed, and approximate location. This data is never linked to any personally identifiable information.</p>
+      <p class="mt-3">If you submit our contact form, we collect your name, clinic name, email address, and message. This is used only to respond to your enquiry. We will never add you to a mailing list without your explicit consent.</p>
+    </div>
+
+    <!-- 6. Your rights -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Your rights
+      </h2>
+      <p>Under UK GDPR, you have the right to access, correct, delete, or restrict the processing of any personal data we hold about you. To exercise any of these rights, email us at <a id="rights-email-link" href="#">contact&#64;clinicaldataintelligence&#46;uk</a>. We will respond within 30 days as required by law, at no charge.</p>
+      <p class="mt-3">You also have the right to raise a concern with the UK Information Commissioner's Office (ICO) at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> — though we'd always appreciate the chance to resolve any concern directly with you first.</p>
+    </div>
+
+    <!-- 7. Contact -->
+    <div class="policy-card">
+      <h2>
+        <svg class="w-5 h-5 text-crimson flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact us
+      </h2>
+      <p>
+        <strong style="color:#6D2323;">Clinical Data Intelligence</strong><br/>
+        United Kingdom &amp; India<br/>
+        Email: <a id="contact-email-link" href="#">contact&#64;clinicaldataintelligence&#46;uk</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="bg-maroon py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span>
+      </div>
+      <p class="text-cream/50 text-xs text-center">© 2026 Clinical Data Intelligence. All rights reserved.</p>
+      <a id="footer-email-link" href="#" class="flex items-center gap-2 text-tan hover:text-cream text-xs font-medium transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        contact&#64;clinicaldataintelligence&#46;uk
+      </a>
+    </div>
+    <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
+      <span class="text-cream/40">GDPR compliant</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="text-cream/40">ICO registered</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="text-cream/40">No PII processed</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
+  });
+
+  // Build email addresses at runtime — Cloudflare cannot encode what isn't a plain string in the HTML
+  (function () {
+    var e = 'contact' + '\u0040' + 'clinicaldataintelligence' + '\u002e' + 'uk';
+    var ids = ['who-email-link', 'rights-email-link', 'contact-email-link', 'footer-email-link'];
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.href = 'mailto:' + e;
+        if (el.textContent.indexOf('@') < 0) el.textContent = e;
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinical Data Intelligence | Free Clinical Data Audit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FEF9E1',
+            tan: '#E5D0AC',
+            crimson: '#A31D1D',
+            maroon: '#6D2323',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(28px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            pulse2: { '0%, 100%': { opacity: '0.7' }, '50%': { opacity: '1' } },
+          },
+          animation: {
+            fadeUp: 'fadeUp 0.75s ease both',
+            fadeUpD1: 'fadeUp 0.75s 0.15s ease both',
+            fadeUpD2: 'fadeUp 0.75s 0.30s ease both',
+            fadeUpD3: 'fadeUp 0.75s 0.45s ease both',
+            fadeIn: 'fadeIn 1s 0.6s ease both',
+            pulse2: 'pulse2 2.5s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+    details > div { animation: fadeUp 0.35s ease both; }
+    details[open] summary svg.chevron { transform: rotate(180deg); }
+    details summary svg.chevron { transition: transform 0.3s ease; }
+    details summary { list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 180px; opacity: 0.45;
+    }
+    .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #A31D1D, #6D2323); border-radius: 2px; }
+    .card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(109,35,35,0.12); }
+    .arsenal-item { border-bottom: 1px solid #E5D0AC; }
+    .arsenal-item:last-child { border-bottom: none; }
+    .arsenal-title { transition: color 0.2s ease; }
+    .drop-bg { background: linear-gradient(135deg, #6D2323 0%, #A31D1D 100%); }
+    .nav-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .text-gradient { background: linear-gradient(135deg, #A31D1D 0%, #6D2323 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .offer-badge { font-family: 'Inter', sans-serif; font-weight: 800; font-style: normal; }
+    .form-field {
+      width: 100%; border: 1.5px solid #E5D0AC; border-radius: 10px;
+      padding: 12px 16px; font-size: 14px; color: #6D2323; background: white;
+      outline: none; transition: border-color 0.2s ease; font-family: 'Inter', sans-serif;
+    }
+    .form-field:focus { border-color: #A31D1D; }
+    .form-field::placeholder { color: rgba(109,35,35,0.35); }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CML49ELGR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7CML49ELGR');
+  </script>
+</head>
+<body class="bg-cream font-sans text-maroon antialiased relative">
+
+<!-- ═══════ NAVBAR ═══════ -->
+<header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <img src="logo.png" alt="CDI Logo" class="h-10 w-auto" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex';" />
+      <div id="logo-fallback" class="hidden items-center gap-2">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#6D2323"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#A31D1D" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-maroon text-lg tracking-tight">CDI</span>
+      </div>
+    </a>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        GDPR Docs
+      </a>
+      <a href="team.html" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">Our Team</a>
+      <a href="#contact-section" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact
+      </a>
+      <a href="#data-drop" class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <span class="sm:hidden">Audit</span>
+        <span class="hidden sm:inline">Free Data Audit</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="relative overflow-hidden bg-cream">
+  <div class="absolute top-0 right-0 w-[55%] h-full bg-tan/30 rounded-bl-[80px] hidden lg:block"></div>
+  <div class="absolute bottom-8 left-12 w-40 h-40 bg-tan/40 rounded-full blur-3xl"></div>
+  <div class="relative max-w-6xl mx-auto px-6 py-20 lg:py-28">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="relative z-10">
+        <div class="animate-fadeUp inline-flex items-center gap-2 bg-crimson/10 border border-crimson/20 text-crimson text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-crimson animate-pulse2 inline-block"></span>
+          Private Clinic Revenue Intelligence
+        </div>
+        <h1 class="animate-fadeUpD1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-maroon leading-[1.1] mb-6">
+          Stop Losing<span class="text-gradient block">£10,000+</span>to Dormant Patients.
+        </h1>
+        <p class="animate-fadeUpD2 text-maroon/70 text-lg leading-relaxed mb-10 max-w-md">
+          We extract unbooked revenue from your dormant patient database and automate your clinic's efficiency — starting with a zero-risk diagnostic audit.
+        </p>
+        <div class="animate-fadeUpD3 flex flex-col sm:flex-row gap-4">
+          <a href="#data-drop" class="inline-flex items-center justify-center gap-2 bg-crimson hover:bg-maroon text-cream font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg group">
+            Start Your Free Audit
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#protocol" class="inline-flex items-center justify-center gap-2 border-2 border-tan hover:border-crimson text-maroon hover:text-crimson font-semibold px-8 py-4 rounded-full transition-all duration-200">
+            How It Works
+          </a>
+        </div>
+        <div class="animate-fadeIn mt-10 flex flex-wrap items-center gap-5 text-xs text-maroon/50 font-medium">
+          <div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-crimson" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>GDPR Compliant</div>
+          <div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-crimson" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>48-Hour Turnaround</div>
+          <div class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-crimson" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Zero PII on Servers</div>
+        </div>
+      </div>
+      <div class="animate-fadeIn relative flex items-center justify-center lg:justify-end">
+        <svg viewBox="0 0 520 440" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-lg drop-shadow-xl">
+          <rect x="20" y="20" width="480" height="400" rx="24" fill="white" opacity="0.7"/>
+          <rect x="20" y="20" width="480" height="400" rx="24" stroke="#E5D0AC" stroke-width="1.5"/>
+          <rect x="48" y="52" width="195" height="160" rx="12" fill="#FEF9E1"/>
+          <rect x="48" y="52" width="195" height="160" rx="12" stroke="#E5D0AC" stroke-width="1"/>
+          <text x="64" y="76" font-family="Inter,sans-serif" font-size="9" fill="#6D2323" font-weight="600" letter-spacing="0.8">REVENUE RECOVERY</text>
+          <rect x="70" y="150" width="18" height="44" rx="4" fill="#E5D0AC"/>
+          <rect x="96" y="130" width="18" height="64" rx="4" fill="#E5D0AC"/>
+          <rect x="122" y="108" width="18" height="86" rx="4" fill="#A31D1D" opacity="0.7"/>
+          <rect x="148" y="92" width="18" height="102" rx="4" fill="#A31D1D"/>
+          <rect x="174" y="106" width="18" height="88" rx="4" fill="#6D2323"/>
+          <rect x="200" y="78" width="18" height="116" rx="4" fill="#6D2323"/>
+          <line x1="64" y1="196" x2="226" y2="196" stroke="#E5D0AC" stroke-width="1"/>
+          <path d="M209 60 L214 50 L219 60" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <line x1="214" y1="50" x2="214" y2="76" stroke="#A31D1D" stroke-width="2" stroke-linecap="round"/>
+          <rect x="257" y="52" width="215" height="160" rx="12" fill="#FEF9E1"/>
+          <rect x="257" y="52" width="215" height="160" rx="12" stroke="#E5D0AC" stroke-width="1"/>
+          <text x="273" y="76" font-family="Inter,sans-serif" font-size="9" fill="#6D2323" font-weight="600" letter-spacing="0.8">PATIENT REACTIVATION</text>
+          <polyline points="283,178 313,165 343,148 373,130 403,112 433,98 455,88" stroke="#A31D1D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M283,178 313,165 343,148 373,130 403,112 433,98 455,88 455,196 283,196 Z" fill="#A31D1D" opacity="0.08"/>
+          <circle cx="373" cy="130" r="3" fill="white" stroke="#A31D1D" stroke-width="2"/>
+          <circle cx="455" cy="88" r="4" fill="#A31D1D"/>
+          <rect x="418" y="62" width="60" height="20" rx="6" fill="#6D2323"/>
+          <text x="448" y="76" font-family="Inter,sans-serif" font-size="8.5" fill="white" font-weight="600" text-anchor="middle">GROWTH</text>
+          <rect x="48" y="228" width="424" height="80" rx="12" fill="#FEF9E1"/>
+          <rect x="48" y="228" width="424" height="80" rx="12" stroke="#E5D0AC" stroke-width="1"/>
+          <text x="90" y="256" font-family="Inter,sans-serif" font-size="8.5" fill="#A31D1D" font-weight="600" letter-spacing="0.6" text-anchor="middle">DORMANT PATIENTS</text>
+          <text x="90" y="282" font-family="Playfair Display,serif" font-size="24" fill="#6D2323" font-weight="700" text-anchor="middle">247</text>
+          <line x1="178" y1="244" x2="178" y2="296" stroke="#E5D0AC" stroke-width="1"/>
+          <text x="260" y="256" font-family="Inter,sans-serif" font-size="8.5" fill="#A31D1D" font-weight="600" letter-spacing="0.6" text-anchor="middle">REVENUE ANALYSIS</text>
+          <text x="260" y="282" font-family="Playfair Display,serif" font-size="24" fill="#A31D1D" font-weight="700" text-anchor="middle">Verified</text>
+          <line x1="348" y1="244" x2="348" y2="296" stroke="#E5D0AC" stroke-width="1"/>
+          <text x="422" y="256" font-family="Inter,sans-serif" font-size="8.5" fill="#A31D1D" font-weight="600" letter-spacing="0.6" text-anchor="middle">RECOVERY SCORE</text>
+          <text x="422" y="282" font-family="Playfair Display,serif" font-size="24" fill="#6D2323" font-weight="700" text-anchor="middle">94%</text>
+          <rect x="48" y="324" width="424" height="76" rx="12" fill="url(#hg)"/>
+          <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6D2323"/><stop offset="100%" stop-color="#A31D1D"/></linearGradient></defs>
+          <polyline points="116,362 134,362 142,340 152,384 162,348 172,362 234,362 242,350 250,374 258,362 330,356 350,362 420,362" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ WHO WE ARE ═══════ -->
+<section class="bg-white py-20 lg:py-28">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Our Methodology</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-maroon leading-tight mb-4">Biotech Logic for<br/>Private Clinics.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+    <div class="max-w-2xl mx-auto">
+      <details class="group border-2 border-tan rounded-2xl overflow-hidden">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-cream hover:bg-tan/40 transition-colors select-none">
+          <span class="font-medium text-maroon text-base">We are a specialized clinical data consultancy. <span class="text-crimson font-semibold">Click to see how we work.</span></span>
+          <svg class="chevron flex-shrink-0 w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="bg-white border-t border-tan px-7 py-7 flex gap-6 items-start">
+          <svg width="72" height="72" viewBox="0 0 80 80" fill="none" class="flex-shrink-0">
+            <rect x="8" y="16" width="48" height="52" rx="6" fill="#FEF9E1" stroke="#E5D0AC" stroke-width="1.5"/>
+            <rect x="15" y="26" width="28" height="3" rx="1.5" fill="#E5D0AC"/>
+            <rect x="15" y="33" width="22" height="3" rx="1.5" fill="#E5D0AC"/>
+            <rect x="15" y="40" width="26" height="3" rx="1.5" fill="#A31D1D" opacity="0.5"/>
+            <rect x="15" y="47" width="18" height="3" rx="1.5" fill="#E5D0AC"/>
+            <circle cx="50" cy="50" r="16" fill="white" stroke="#6D2323" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="10" fill="#FEF9E1" stroke="#A31D1D" stroke-width="1.5"/>
+            <line x1="50" y1="44" x2="50" y2="56" stroke="#A31D1D" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="44" y1="50" x2="56" y2="50" stroke="#A31D1D" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="62" y1="62" x2="72" y2="72" stroke="#6D2323" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <h3 class="font-serif text-xl font-bold text-maroon mb-3">The Engine Behind Your Insights</h3>
+            <p class="text-maroon/70 leading-relaxed text-sm">Led by biotech engineering expertise, we take your messy, exported practice management software data and run <strong class="text-crimson">revenue modeling and pattern-based identification</strong> on it to find unbooked treatments and dormant patients.</p>
+            <p class="text-maroon/70 leading-relaxed text-sm mt-3">You hand us an anonymized CSV for a free diagnostic audit. We return a ranked list of revenue opportunities. No guesswork. No marketing spend. Just mathematics applied to the data you've already collected.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-xs font-semibold bg-crimson/10 text-crimson px-3 py-1 rounded-full">Biotech Algorithms</span>
+              <span class="text-xs font-semibold bg-crimson/10 text-crimson px-3 py-1 rounded-full">Revenue Modeling</span>
+              <span class="text-xs font-semibold bg-crimson/10 text-crimson px-3 py-1 rounded-full">Data Hygiene</span>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ VALUE CARDS ═══════ -->
+<section class="bg-cream py-20 lg:py-28">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">The CDI Standard</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-maroon leading-tight">What You Can Expect.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-hover bg-white border border-tan rounded-2xl p-8 flex flex-col gap-5">
+        <div class="w-14 h-14 rounded-xl bg-crimson/10 flex items-center justify-center">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 3L5 7.5V15c0 6.627 4.8 12.84 11 14.5C22.2 27.84 27 21.627 27 15V7.5L16 3Z" fill="#A31D1D" opacity="0.12" stroke="#A31D1D" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 16l3 3 7-7" stroke="#6D2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-xl font-bold text-maroon mb-2">Zero GDPR Risk</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">We only process anonymized CSVs. No patient names, emails, or personally identifiable information ever touches our servers. Full ICO compliance, guaranteed.</p>
+        </div>
+        <div class="mt-auto pt-4 border-t border-tan"><span class="text-xs font-semibold text-crimson uppercase tracking-wider">ICO Compliant · Anonymized Only</span></div>
+      </div>
+      <div class="card-hover bg-maroon rounded-2xl p-8 flex flex-col gap-5">
+        <div class="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="11" stroke="#FEF9E1" stroke-width="1.8" opacity="0.9"/><path d="M16 9v7l4.5 4.5" stroke="#E5D0AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="1.5" fill="#FEF9E1"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-xl font-bold text-cream mb-2">48-Hour Turnaround</h3>
+          <p class="text-cream/70 text-sm leading-relaxed">From data drop to your complete Audit Report in just two days. No lengthy onboarding. No consultant hours. Just a fast, surgical answer.</p>
+        </div>
+        <div class="mt-auto pt-4 border-t border-white/10"><span class="text-xs font-semibold text-tan uppercase tracking-wider">Drop Monday · Report Wednesday</span></div>
+      </div>
+      <div class="card-hover bg-white border border-tan rounded-2xl p-8 flex flex-col gap-5">
+        <div class="w-14 h-14 rounded-xl bg-crimson/10 flex items-center justify-center">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="4" fill="#A31D1D" opacity="0.1" stroke="#A31D1D" stroke-width="1.5"/><polyline points="8,22 13,15 17,18 22,10 27,13" stroke="#6D2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="10" r="2" fill="#A31D1D"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-xl font-bold text-maroon mb-2">Operational Truth</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">No marketing fluff. No vanity metrics. Just pure, structured analytics with exact patient IDs and treatment codes your team can action immediately.</p>
+        </div>
+        <div class="mt-auto pt-4 border-t border-tan"><span class="text-xs font-semibold text-crimson uppercase tracking-wider">Revenue Analysis · Zero Fluff</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROTOCOL — HOW IT WORKS (all 5 steps) ═══════ -->
+<section id="protocol" class="bg-maroon py-20 lg:py-28 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none opacity-10">
+    <svg width="100%" height="100%"><defs><pattern id="pgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FEF9E1" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#pgrid)"/></svg>
+  </div>
+  <div class="relative max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-tan text-xs font-semibold uppercase tracking-widest mb-3">Our Process</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-cream leading-tight">How The Protocol Works.</h2>
+      <div class="w-[60px] h-[3px] bg-gradient-to-r from-crimson to-tan rounded mx-auto mt-5"></div>
+      <p class="text-cream/60 mt-5 max-w-xl mx-auto text-sm">From raw export to actionable intelligence — five surgical steps, 48-hour turnaround.</p>
+    </div>
+
+    <!-- DESKTOP: 5 steps in a row -->
+    <div class="hidden lg:flex items-start">
+
+      <div class="flex-1 relative group">
+        <div class="flex flex-col items-center text-center px-3">
+          <div class="w-14 h-14 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="offer-badge text-4xl text-tan/30 leading-none mb-2">01</div>
+          <h3 class="font-serif text-sm font-bold text-cream mb-2">Secure Data Drop</h3>
+          <p class="text-cream/55 text-xs leading-relaxed">Export your raw anonymized CSV and drop it into our 256-bit encrypted, UK GDPR-compliant portal.</p>
+        </div>
+        <div class="absolute top-7 left-[calc(50%+28px)] right-0 h-0.5 bg-gradient-to-r from-tan/40 to-transparent"></div>
+      </div>
+
+      <div class="flex-1 relative group">
+        <div class="flex flex-col items-center text-center px-3">
+          <div class="w-14 h-14 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8l2 2 4-4"/></svg>
+          </div>
+          <div class="offer-badge text-4xl text-tan/30 leading-none mb-2">02</div>
+          <h3 class="font-serif text-sm font-bold text-cream mb-2">Secure Cloud Ingestion</h3>
+          <p class="text-cream/55 text-xs leading-relaxed">Data is transferred to our isolated cloud infrastructure, completely separated from public servers to ensure data sovereignty.</p>
+        </div>
+        <div class="absolute top-7 left-[calc(50%+28px)] right-0 h-0.5 bg-gradient-to-r from-tan/40 to-transparent"></div>
+      </div>
+
+      <div class="flex-1 relative group">
+        <div class="flex flex-col items-center text-center px-3">
+          <div class="w-14 h-14 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="offer-badge text-4xl text-tan/30 leading-none mb-2">03</div>
+          <h3 class="font-serif text-sm font-bold text-cream mb-2">Algorithmic Hygiene</h3>
+          <p class="text-cream/55 text-xs leading-relaxed">Automated scripts scrub duplicates, fix formatting errors, and standardize messy diagnostic and treatment codes.</p>
+        </div>
+        <div class="absolute top-7 left-[calc(50%+28px)] right-0 h-0.5 bg-gradient-to-r from-tan/40 to-transparent"></div>
+      </div>
+
+      <div class="flex-1 relative group">
+        <div class="flex flex-col items-center text-center px-3">
+          <div class="w-14 h-14 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="offer-badge text-4xl text-tan/30 leading-none mb-2">04</div>
+          <h3 class="font-serif text-sm font-bold text-cream mb-2">Advanced Analysis</h3>
+          <p class="text-cream/55 text-xs leading-relaxed">Cleaned data is fed into our time-based churn identification and treatment gap analysis to isolate abandoned high-ticket treatments.</p>
+        </div>
+        <div class="absolute top-7 left-[calc(50%+28px)] right-0 h-0.5 bg-gradient-to-r from-tan/40 to-transparent"></div>
+      </div>
+
+      <div class="flex-1 group">
+        <div class="flex flex-col items-center text-center px-3">
+          <div class="w-14 h-14 rounded-full bg-tan border-2 border-tan flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6D2323" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="offer-badge text-4xl text-tan/30 leading-none mb-2">05</div>
+          <h3 class="font-serif text-sm font-bold text-tan mb-2">Actionable Delivery</h3>
+          <p class="text-cream/55 text-xs leading-relaxed">Within 48 hours, receive your clean dataset plus a targeted report with exact patient IDs to follow up with.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE: all 5 steps stacked vertically -->
+    <div class="lg:hidden flex flex-col">
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center shadow-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="w-0.5 bg-tan/20 my-2" style="min-height:2rem;flex:1"></div>
+        </div>
+        <div class="pb-7 pt-1">
+          <div class="flex items-center gap-3 mb-1"><span class="offer-badge text-2xl text-tan/40">01</span><h3 class="font-serif text-lg font-bold text-cream">Secure Data Drop</h3></div>
+          <p class="text-cream/55 text-sm leading-relaxed">Export your raw anonymized CSV and drop it into our 256-bit encrypted, UK GDPR-compliant portal.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center shadow-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8l2 2 4-4"/></svg>
+          </div>
+          <div class="w-0.5 bg-tan/20 my-2" style="min-height:2rem;flex:1"></div>
+        </div>
+        <div class="pb-7 pt-1">
+          <div class="flex items-center gap-3 mb-1"><span class="offer-badge text-2xl text-tan/40">02</span><h3 class="font-serif text-lg font-bold text-cream">Secure Cloud Ingestion</h3></div>
+          <p class="text-cream/55 text-sm leading-relaxed">Data is transferred to our isolated cloud infrastructure, completely separated from public servers to ensure data sovereignty.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center shadow-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="w-0.5 bg-tan/20 my-2" style="min-height:2rem;flex:1"></div>
+        </div>
+        <div class="pb-7 pt-1">
+          <div class="flex items-center gap-3 mb-1"><span class="offer-badge text-2xl text-tan/40">03</span><h3 class="font-serif text-lg font-bold text-cream">Algorithmic Hygiene</h3></div>
+          <p class="text-cream/55 text-sm leading-relaxed">Automated scripts scrub duplicates, fix formatting errors, and standardize messy diagnostic and treatment codes.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-crimson border-2 border-tan/40 flex items-center justify-center shadow-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="w-0.5 bg-tan/20 my-2" style="min-height:2rem;flex:1"></div>
+        </div>
+        <div class="pb-7 pt-1">
+          <div class="flex items-center gap-3 mb-1"><span class="offer-badge text-2xl text-tan/40">04</span><h3 class="font-serif text-lg font-bold text-cream">Advanced Analysis</h3></div>
+          <p class="text-cream/55 text-sm leading-relaxed">Cleaned data is fed into our time-based churn identification and treatment gap analysis to isolate high-ticket treatment gaps.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-12 h-12 rounded-full bg-tan border-2 border-tan flex items-center justify-center shadow-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6D2323" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+        <div class="pt-1">
+          <div class="flex items-center gap-3 mb-1"><span class="offer-badge text-2xl text-tan/40">05</span><h3 class="font-serif text-lg font-bold text-tan">Actionable Delivery</h3></div>
+          <p class="text-cream/55 text-sm leading-relaxed">Within 48 hours, receive your clean dataset plus a targeted report with exact patient IDs to follow up with.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SERVICES / ARSENAL ═══════ -->
+<section class="bg-white py-20 lg:py-28">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Our Services</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-maroon leading-tight">The Clinical Data Arsenal.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+      <p class="text-maroon/60 mt-5 max-w-xl mx-auto text-sm">Click any service to reveal how it works and what it delivers for your practice.</p>
+    </div>
+    <div class="border-2 border-tan rounded-2xl overflow-hidden divide-y divide-tan">
+
+      <details class="arsenal-item group">
+        <summary class="px-8 py-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-cream transition-colors select-none">
+          <div class="flex items-center gap-5">
+            <span class="offer-badge text-3xl text-tan group-hover:text-crimson transition-colors">01</span>
+            <div>
+              <span class="arsenal-title font-serif text-xl font-bold text-maroon">Clinical Data Hygiene &amp; Standardization</span>
+              <p class="text-xs text-maroon/50 mt-0.5 font-medium">For Messy Practice Management Software</p>
+            </div>
+          </div>
+          <svg class="chevron flex-shrink-0 w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="bg-cream px-8 pb-7 pt-1">
+          <div class="border-l-2 border-crimson pl-5">
+            <p class="text-maroon/70 text-sm leading-relaxed">We take your raw, chaotic database and run it through our secure cloud infrastructure to remove duplicates, fix formatting, and reconcile missing fields. You get a mathematically perfect single source of truth to prevent operational leaks.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="arsenal-item group">
+        <summary class="px-8 py-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-cream transition-colors select-none">
+          <div class="flex items-center gap-5">
+            <span class="offer-badge text-3xl text-tan group-hover:text-crimson transition-colors">02</span>
+            <div>
+              <span class="arsenal-title font-serif text-xl font-bold text-maroon">Clinic Patient Reactivation</span>
+              <p class="text-xs text-maroon/50 mt-0.5 font-medium">For Private Clinics &amp; Dental Practices</p>
+            </div>
+          </div>
+          <svg class="chevron flex-shrink-0 w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="bg-cream px-8 pb-7 pt-1">
+          <div class="border-l-2 border-crimson pl-5">
+            <p class="text-maroon/70 text-sm leading-relaxed">We run your exported database through time-based churn identification and treatment gap analysis to identify "flight risks" — patients with strong histories who stopped booking. We deliver a prioritized list of exact IDs, giving your reception team a highly probable target list to recover lost revenue.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="arsenal-item group">
+        <summary class="px-8 py-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-cream transition-colors select-none">
+          <div class="flex items-center gap-5">
+            <span class="offer-badge text-3xl text-tan group-hover:text-crimson transition-colors">03</span>
+            <div>
+              <span class="arsenal-title font-serif text-xl font-bold text-maroon">Diagnostic Lab Data Outsourcing</span>
+              <p class="text-xs text-maroon/50 mt-0.5 font-medium">For Medical Laboratories &amp; Testing Facilities</p>
+            </div>
+          </div>
+          <svg class="chevron flex-shrink-0 w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="bg-cream px-8 pb-7 pt-1">
+          <div class="border-l-2 border-crimson pl-5">
+            <p class="text-maroon/70 text-sm leading-relaxed">Labs often drown in unstructured data backlogs. We provide rapid-turnaround data processing — merging duplicates, standardizing testing codes, and restructuring massive Excel files into clean, machine-readable formats. Outsource your admin data processing securely to us.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="arsenal-item group">
+        <summary class="px-8 py-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-cream transition-colors select-none">
+          <div class="flex items-center gap-5">
+            <span class="offer-badge text-3xl text-tan group-hover:text-crimson transition-colors">04</span>
+            <div>
+              <span class="arsenal-title font-serif text-xl font-bold text-maroon">Academic &amp; Clinical Research Analysis</span>
+              <p class="text-xs text-maroon/50 mt-0.5 font-medium">For UK University Students &amp; Researchers</p>
+            </div>
+          </div>
+          <svg class="chevron flex-shrink-0 w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="bg-cream px-8 pb-7 pt-1">
+          <div class="border-l-2 border-crimson pl-5">
+            <p class="text-maroon/70 text-sm leading-relaxed">Writing a thesis or running a clinical trial? We assist biotech researchers with advanced dataset cleaning, statistical modeling, and machine learning. We handle the Python and Pandas heavy lifting so you can focus strictly on publishing your medical findings.</p>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="bg-cream py-20 lg:py-28">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Common Questions</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-maroon leading-tight">Frequently Asked.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+
+    <style>
+      .faq-item[open] summary svg.faq-chevron { transform: rotate(180deg); }
+      .faq-item summary svg.faq-chevron { transition: transform 0.3s ease; }
+      .faq-item summary { list-style: none; }
+      .faq-item summary::-webkit-details-marker { display: none; }
+    </style>
+
+    <div class="flex flex-col divide-y divide-tan border-2 border-tan rounded-2xl overflow-hidden">
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">What exactly is an anonymised CSV?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">An anonymised CSV is simply a spreadsheet export from your practice management software with columns like patient ID number, treatment code, appointment date, and billing amount — but with all names, email addresses, phone numbers, and dates of birth removed beforehand. Most software like Pabau, Semble, Dentally, and Carebit let you choose which columns to include at export. We will send you exact step-by-step instructions for your specific software once you get in touch.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">Is sharing this data with you GDPR compliant?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">Yes. Because we only ever receive anonymised data with no patient names, contact details, or NHS numbers, the files we process do not constitute personal data under UK GDPR. This means there is no data processing agreement required and no risk of a patient data breach through CDI. You remain the data controller for your full records — we never see them. Full details are in our <a href="privacy.html" class="text-crimson font-medium hover:underline">privacy policy</a>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">How long does the free audit take?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">We deliver your full Revenue Recovery Audit within 48 hours of receiving your anonymised CSV. You will get a clear report showing your dormant patient count, an estimated recoverable revenue figure, and a prioritised list of patient IDs flagged for follow-up — ready to hand directly to your reception team.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">What happens to my data after the audit?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">Your file is permanently and automatically deleted from our systems within 30 days of analysis completion — and typically much sooner. We do not retain, archive, resell, or share any data you send us. Our infrastructure uses AES-256 encryption at rest and TLS in transit. You can request deletion at any point by emailing us directly.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">Do I need technical knowledge to work with CDI?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">Not at all. If you can export a spreadsheet from your practice management software, that is all we need from you. We handle all of the data science, analysis, and formatting on our side. Your audit results are delivered in plain language — no jargon, no dashboards to learn, just a clear list of what to do next.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white">
+        <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer hover:bg-cream transition-colors select-none">
+          <span class="font-semibold text-maroon text-sm sm:text-base">How long will the free audit remain free?</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="px-7 pb-6 pt-1 bg-cream border-t border-tan">
+          <p class="text-maroon/70 text-sm leading-relaxed">The initial Revenue Audit is free during our UK launch phase as we gather feedback and build our track record. We are being transparent: paid tiers will be introduced once the launch phase concludes. If you submit your data now, your audit will be completed free of charge — no retroactive billing, no hidden commitments.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FREE AUDIT UPLOAD ═══════ -->
+<section id="data-drop" class="drop-bg py-20 lg:py-28">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-cream text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+        End-to-End Encrypted
+      </div>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-cream leading-tight mb-4">Free Revenue Recovery Audit</h2>
+      <p class="text-cream/70 max-w-lg mx-auto text-sm leading-relaxed">Upload your anonymized CSV export. We will identify your dormant patient count, estimate recoverable revenue, and surface follow-up treatment gaps — all within 48 hours.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-5 mb-10 text-cream/60 text-xs font-medium">
+      <div class="flex items-center gap-2"><svg class="w-4 h-4 text-tan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>256-bit SSL Encryption</div>
+      <div class="flex items-center gap-2"><svg class="w-4 h-4 text-tan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Anonymized CSVs Only</div>
+      <div class="flex items-center gap-2"><svg class="w-4 h-4 text-tan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Data Deleted Post-Analysis</div>
+      <div class="flex items-center gap-2"><svg class="w-4 h-4 text-tan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>ICO Registered</div>
+    </div>
+    <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+      <div style="width:100%;height:500px;" data-fillout-id="aHNXR5crcJus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+      <script src="https://server.fillout.com/embed/v1/"></script>
+    </div>
+    <p class="mt-5 text-center text-cream/70 text-xs max-w-md mx-auto leading-relaxed">
+      The initial Revenue Audit is free during our UK launch phase as we gather feedback and build our track record. Paid tiers will be introduced once the launch phase concludes.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════ CONTACT SECTION ═══════ -->
+<section id="contact-section" class="bg-cream py-20 lg:py-28">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Get In Touch</p>
+      <h2 class="font-serif text-4xl lg:text-5xl font-bold text-maroon leading-tight">Talk To Us.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+      <p class="text-maroon/60 mt-5 max-w-lg mx-auto text-sm leading-relaxed">Have a question, a custom requirement, or just want to say hello? Send us a message and we'll respond within one business day.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-12 items-start">
+
+      <!-- Left: contact info -->
+      <div class="lg:col-span-2 flex flex-col gap-7">
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-maroon/50 uppercase tracking-wider mb-1">Email Us</p>
+            <!-- Cloudflare-safe: address built by JS at runtime -->
+            <a id="cta-email-link" href="#" class="text-crimson font-semibold text-sm hover:text-maroon transition-colors break-all">contact&#64;clinicaldataintelligence&#46;uk</a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-maroon/50 uppercase tracking-wider mb-1">Based</p>
+            <p class="text-maroon font-medium text-sm">United Kingdom &amp; India</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-maroon/50 uppercase tracking-wider mb-1">Response Time</p>
+            <p class="text-maroon font-medium text-sm">Within 1 business day</p>
+          </div>
+        </div>
+
+        <div class="bg-white border border-tan rounded-xl p-5">
+          <p class="text-xs text-maroon/60 leading-relaxed">Prefer to send your data directly? Use the <a href="#data-drop" class="text-crimson font-semibold hover:underline">Free Audit upload</a> above and we'll be in touch within 48 hours with your full results.</p>
+        </div>
+
+      </div>
+
+      <!-- Right: contact form -->
+      <div class="lg:col-span-3">
+        <form action="https://formsubmit.co/contact@clinicaldataintelligence.uk" method="POST" class="bg-white rounded-2xl border border-tan/60 shadow-sm p-8 flex flex-col gap-5">
+          <input type="hidden" name="_subject" value="New CDI Website Enquiry" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="text" name="_honey" style="display:none" />
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Your Name <span class="text-crimson">*</span></label>
+              <input type="text" name="name" required placeholder="Dr. Jane Smith" class="form-field" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Clinic Name</label>
+              <input type="text" name="clinic" placeholder="Smith Aesthetics Clinic" class="form-field" />
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Email Address <span class="text-crimson">*</span></label>
+              <input type="email" name="email" required placeholder="jane@yourclinic.co.uk" class="form-field" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Contact Number</label>
+              <input type="tel" name="phone" placeholder="+44 7700 000000" class="form-field" />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Message <span class="text-crimson">*</span></label>
+            <textarea name="message" required rows="5" placeholder="Tell us about your clinic, your data challenge, or what you'd like to know..." class="form-field resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-crimson hover:bg-maroon text-cream font-semibold py-3.5 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm">
+            Send Message
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </button>
+          <p class="text-center text-maroon/40 text-xs">We'll respond within one business day. We never share your details.</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="bg-maroon py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span>
+      </div>
+      <p class="text-cream/50 text-xs text-center">© 2026 Clinical Data Intelligence. All rights reserved.</p>
+      <a id="footer-email-link" href="#" class="flex items-center gap-2 text-tan hover:text-cream text-xs font-medium transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        contact&#64;clinicaldataintelligence&#46;uk
+      </a>
+    </div>
+    <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
+      <span class="text-cream/40">GDPR compliant</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="text-cream/40">ICO registered</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="text-cream/40">No PII processed</span>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
+  });
+
+  // Arsenal accordion — one open at a time
+  document.querySelectorAll('.arsenal-item').forEach(detail => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        document.querySelectorAll('.arsenal-item').forEach(other => {
+          if (other !== detail) other.removeAttribute('open');
+        });
+      }
+    });
+  });
+
+  // Build email links at runtime (Cloudflare never sees a plain address in the HTML)
+  (function () {
+    var e = 'contact' + '\u0040' + 'clinicaldataintelligence' + '\u002e' + 'uk';
+    var cta = document.getElementById('cta-email-link');
+    var ftr = document.getElementById('footer-email-link');
+    if (cta) { cta.href = 'mailto:' + e; cta.textContent = e; }
+    if (ftr) { ftr.href = 'mailto:' + e; ftr.textContent = e; }
+  })();
+</script>
+
+</body>
+</html>
