@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Data Support | Clinical Data Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream: '#FEF9E1', tan: '#E5D0AC', crimson: '#A31D1D', maroon: '#6D2323' },
+          fontFamily: { sans: ['Inter','sans-serif'], serif: ['"Playfair Display"','serif'] },
+          keyframes: {
+            fadeUp: { '0%': { opacity:'0', transform:'translateY(20px)' }, '100%': { opacity:'1', transform:'translateY(0)' } },
+          },
+          animation: {
+            fadeUp:   'fadeUp 0.7s ease both',
+            fadeUpD1: 'fadeUp 0.7s 0.15s ease both',
+            fadeUpD2: 'fadeUp 0.7s 0.30s ease both',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size:180px; opacity:0.45;
+    }
+    .section-divider { width:60px; height:3px; background:linear-gradient(90deg,#A31D1D,#6D2323); border-radius:2px; }
+    .card-hover { transition:transform 0.25s ease, box-shadow 0.25s ease; }
+    .card-hover:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(109,35,35,0.12); }
+    .nav-scrolled { box-shadow:0 2px 20px rgba(0,0,0,0.08); }
+    .form-field {
+      width:100%; border:1.5px solid #E5D0AC; border-radius:10px;
+      padding:12px 16px; font-size:14px; color:#6D2323; background:white;
+      outline:none; transition:border-color 0.2s ease; font-family:'Inter',sans-serif;
+    }
+    .form-field:focus { border-color:#A31D1D; }
+    .form-field::placeholder { color:rgba(109,35,35,0.35); }
+  </style>
+</head>
+<body class="bg-cream font-sans text-maroon antialiased relative">
+
+<!-- NAVBAR -->
+<header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="logo.png" alt="CDI Logo" class="h-10 w-auto"
+           onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex';" />
+      <div id="logo-fallback" class="hidden items-center gap-2">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="6" fill="#6D2323"/>
+          <path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="10" r="2" fill="#A31D1D" stroke="#FEF9E1" stroke-width="1.5"/>
+        </svg>
+        <span class="font-serif font-bold text-maroon text-lg tracking-tight">CDI</span>
+      </div>
+    </a>
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a href="index.html" class="text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">← Back to main site</a>
+      <a href="#research-contact"
+         class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200 shadow-sm">
+        Get in touch
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-cream">
+  <div class="absolute top-0 right-0 w-[45%] h-full bg-tan/25 rounded-bl-[60px] hidden lg:block"></div>
+  <div class="relative max-w-5xl mx-auto px-6 py-20 lg:py-28">
+    <div class="max-w-2xl">
+      <div class="animate-fadeUp inline-flex items-center gap-2 bg-crimson/10 border border-crimson/20 text-crimson text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        For students &amp; researchers
+      </div>
+      <h1 class="animate-fadeUpD1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-maroon leading-[1.1] mb-5">
+        Data support for your research project.
+      </h1>
+      <p class="animate-fadeUpD2 text-maroon/70 text-lg leading-relaxed mb-8 max-w-lg">
+        You're doing the important work — the research, the writing, the analysis. We handle the part that slows everyone down: getting the dataset into a shape that's actually usable.
+      </p>
+      <a href="#research-contact"
+         class="inline-flex items-center gap-2 bg-crimson hover:bg-maroon text-cream font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg group">
+        Tell us about your project
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+<section class="bg-white py-16">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-10">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Who this is for</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon leading-tight">We work with students and researchers who need their data sorted.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div class="bg-cream border border-tan rounded-xl p-6 text-center">
+        <div class="w-12 h-12 rounded-full bg-crimson/10 flex items-center justify-center mx-auto mb-4">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <h3 class="font-semibold text-maroon text-sm mb-2">University students</h3>
+        <p class="text-maroon/60 text-xs leading-relaxed">Undergraduate or postgraduate dissertations and thesis projects that involve a dataset you need to clean and analyse.</p>
+      </div>
+      <div class="bg-cream border border-tan rounded-xl p-6 text-center">
+        <div class="w-12 h-12 rounded-full bg-crimson/10 flex items-center justify-center mx-auto mb-4">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3 class="font-semibold text-maroon text-sm mb-2">Clinical researchers</h3>
+        <p class="text-maroon/60 text-xs leading-relaxed">Running a clinical trial or observational study and need the data structured before you can run your analysis.</p>
+      </div>
+      <div class="bg-cream border border-tan rounded-xl p-6 text-center">
+        <div class="w-12 h-12 rounded-full bg-crimson/10 flex items-center justify-center mx-auto mb-4">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3 class="font-semibold text-maroon text-sm mb-2">Independent researchers</h3>
+        <p class="text-maroon/60 text-xs leading-relaxed">Working outside of a university setting and need a clean, structured dataset ready to feed into your report or publication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="bg-cream py-20 lg:py-24">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">What we do</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon leading-tight">We help you get from raw data to ready-to-analyse.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <div class="card-hover bg-white border border-tan rounded-2xl p-7 flex gap-5">
+        <div class="w-11 h-11 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-maroon mb-2">Dataset cleaning</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">Duplicates removed, inconsistent entries corrected, missing values flagged, and formatting standardised — so your data is ready to use.</p>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border border-tan rounded-2xl p-7 flex gap-5">
+        <div class="w-11 h-11 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-maroon mb-2">Data structuring</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">Disorganised spreadsheets reorganised into consistent, logical formats that work with SPSS, R, Python, or Excel analysis tools.</p>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border border-tan rounded-2xl p-7 flex gap-5">
+        <div class="w-11 h-11 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-maroon mb-2">Basic descriptive analysis</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">Frequencies, averages, distributions, and summary tables — the foundational numbers your write-up needs, presented clearly.</p>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white border border-tan rounded-2xl p-7 flex gap-5">
+        <div class="w-11 h-11 rounded-xl bg-crimson/10 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-maroon mb-2">Report-ready outputs</h3>
+          <p class="text-maroon/65 text-sm leading-relaxed">We deliver your cleaned data and any summary analysis in a format you can include directly in your dissertation, thesis, or paper.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- What we don't do — honest boundary setting -->
+    <div class="mt-8 bg-white border border-tan rounded-2xl p-6">
+      <p class="text-xs font-semibold text-maroon/50 uppercase tracking-widest mb-3">What we don't do</p>
+      <p class="text-maroon/65 text-sm leading-relaxed">
+        We don't write your dissertation, draw your conclusions, or conduct advanced statistical modelling (regression, inferential statistics, etc.) for you. We help you get the data into a usable state so you can do the intellectual work yourself. If you're unsure whether your project fits, just get in touch and we'll tell you honestly.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="bg-maroon py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-tan text-xs font-semibold uppercase tracking-widest mb-3">The process</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-cream leading-tight">Simple and straightforward.</h2>
+      <div class="w-[60px] h-[3px] bg-gradient-to-r from-crimson to-tan rounded mx-auto mt-5"></div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="flex flex-col gap-3">
+        <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-cream font-bold text-sm">1</div>
+        <h3 class="font-semibold text-cream text-sm">You tell us what you have</h3>
+        <p class="text-cream/55 text-xs leading-relaxed">Describe your dataset, your research question, and what output you need. No jargon required.</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-cream font-bold text-sm">2</div>
+        <h3 class="font-semibold text-cream text-sm">We agree on scope</h3>
+        <p class="text-cream/55 text-xs leading-relaxed">We'll confirm exactly what we'll deliver, the timeline, and any constraints — before we start.</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-cream font-bold text-sm">3</div>
+        <h3 class="font-semibold text-cream text-sm">We clean and structure your data</h3>
+        <p class="text-cream/55 text-xs leading-relaxed">All work is done securely on our side. Your file is deleted after delivery.</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="w-10 h-10 rounded-full bg-tan flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6D2323" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 class="font-semibold text-cream text-sm">You receive your clean output</h3>
+        <p class="text-cream/55 text-xs leading-relaxed">A clean dataset and any agreed summaries — ready for your analysis or to include in your report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING NOTE -->
+<section class="bg-white py-14">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="bg-cream border border-tan rounded-2xl p-8">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Pricing</p>
+      <h3 class="font-serif text-2xl font-bold text-maroon mb-3">Pricing depends on scope.</h3>
+      <p class="text-maroon/65 text-sm leading-relaxed max-w-xl mx-auto">
+        Every dataset is different, so we price based on the size and complexity of the work. Tell us what you're working with and we'll give you a clear, fixed price upfront — no surprises. Student projects are always priced fairly.
+      </p>
+      <a href="#research-contact" class="inline-flex items-center gap-2 bg-crimson hover:bg-maroon text-cream font-semibold px-7 py-3 rounded-full transition-all duration-200 text-sm mt-6">
+        Get a quote
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="research-contact" class="bg-cream py-20 lg:py-28">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Get started</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon leading-tight">Tell us about your project.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+      <p class="text-maroon/60 mt-5 max-w-lg mx-auto text-sm leading-relaxed">The more detail you can give us, the more accurately we can respond. We'll get back to you within one business day.</p>
+    </div>
+    <form action="https://formsubmit.co/contact@clinicaldataintelligence.uk" method="POST"
+          class="bg-white rounded-2xl border border-tan/60 shadow-sm p-8 flex flex-col gap-5">
+      <input type="hidden" name="_subject" value="Research data support enquiry" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" style="display:none" />
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Your name <span class="text-crimson">*</span></label>
+          <input type="text" name="name" required placeholder="Alex Chen" class="form-field" />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">University / institution</label>
+          <input type="text" name="institution" placeholder="University of Manchester" class="form-field" />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Email address <span class="text-crimson">*</span></label>
+        <input type="email" name="email" required placeholder="alex.chen@university.ac.uk" class="form-field" />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Type of project</label>
+        <select name="project_type" class="form-field">
+          <option value="" disabled selected>Select one…</option>
+          <option value="undergraduate">Undergraduate dissertation</option>
+          <option value="postgraduate">Postgraduate / MSc dissertation</option>
+          <option value="phd">PhD research</option>
+          <option value="clinical_trial">Clinical trial / observational study</option>
+          <option value="independent">Independent research</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Describe your dataset and what you need <span class="text-crimson">*</span></label>
+        <textarea name="message" required rows="6"
+                  placeholder="What does the dataset contain? How many rows/columns? What's the problem (messy data, duplicates, missing values)? What output do you need and when?"
+                  class="form-field resize-none"></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-crimson hover:bg-maroon text-cream font-semibold py-3.5 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm">
+        Send project details
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+      <p class="text-center text-maroon/40 text-xs">We respond within one business day. Your data is never shared with third parties.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-maroon py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span>
+      </a>
+      <p class="text-cream/50 text-xs text-center">© 2026 Clinical Data Intelligence. All rights reserved.</p>
+      <span class="text-tan text-xs font-medium">contact&#64;clinicaldataintelligence&#46;uk</span>
+    </div>
+    <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
+      <a href="index.html" class="text-tan hover:text-cream transition-colors font-medium">Main site</a>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="labs.html" class="text-tan hover:text-cream transition-colors font-medium">Lab data processing</a>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a>
+      <span class="hidden sm:block text-cream/20">·</span>
+      <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
+  });
+</script>
+</body>
+</html>
