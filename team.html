@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Team | Clinical Data Intelligence</title>
+  <title>Our team | Clinical Data Intelligence</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -46,11 +46,8 @@
     }
     .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #A31D1D, #6D2323); border-radius: 2px; }
     .nav-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-    .card-shadow { box-shadow: 0 4px 24px rgba(109,35,35,0.07); }
+    .card-shadow { box-shadow: 0 4px 24px rgba(109,35,35,0.07); transition: box-shadow 0.25s ease, transform 0.25s ease; }
     .card-shadow:hover { box-shadow: 0 12px 40px rgba(109,35,35,0.14); transform: translateY(-3px); }
-    .card-shadow { transition: box-shadow 0.25s ease, transform 0.25s ease; }
-
-    /* Decorative dot grid for hero */
     .dot-grid {
       background-image: radial-gradient(circle, #E5D0AC 1px, transparent 1px);
       background-size: 24px 24px;
@@ -59,7 +56,7 @@
 </head>
 <body class="bg-cream font-sans text-maroon antialiased relative">
 
-<!-- ═══════ NAVBAR ═══════ -->
+<!-- NAVBAR -->
 <header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
   <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3">
@@ -70,9 +67,9 @@
       </div>
     </a>
     <div class="flex items-center gap-2 sm:gap-4">
-      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
+      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        GDPR Docs
+        GDPR docs
       </a>
       <a href="index.html#contact-section" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -80,17 +77,16 @@
       </a>
       <a href="index.html#data-drop" class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm whitespace-nowrap">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        Free Data Audit
+        <span class="sm:hidden">Free audit</span>
+        <span class="hidden sm:inline">Start free audit</span>
       </a>
     </div>
   </nav>
 </header>
 
-<!-- ═══════ HERO ═══════ -->
+<!-- HERO -->
 <section class="relative bg-maroon overflow-hidden py-20 lg:py-28">
-  <!-- Dot grid decoration -->
   <div class="absolute inset-0 dot-grid opacity-10 pointer-events-none"></div>
-  <!-- Glow blobs -->
   <div class="absolute top-0 right-0 w-72 h-72 bg-crimson/20 rounded-full blur-3xl pointer-events-none"></div>
   <div class="absolute bottom-0 left-0 w-56 h-56 bg-tan/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -100,38 +96,34 @@
       The people behind CDI
     </div>
     <h1 class="animate-fadeUpD1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-6">
-      The People<br/>
-      <span style="background: linear-gradient(135deg, #E5D0AC 0%, #FEF9E1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Behind CDI.</span>
+      The people<br/>
+      <span style="background: linear-gradient(135deg, #E5D0AC 0%, #FEF9E1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">behind CDI.</span>
     </h1>
     <p class="animate-fadeUpD2 text-cream/65 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
-      A clinical scientist and a software architect — two disciplines, one mission: turning fragmented clinic data into revenue.
+      A clinical scientist and a software architect — two disciplines, one mission: turning fragmented clinic data into recoverable revenue.
     </p>
   </div>
 </section>
 
-<!-- ═══════ TEAM CARDS ═══════ -->
+<!-- TEAM CARDS -->
 <section class="py-20 lg:py-28 bg-cream">
   <div class="max-w-5xl mx-auto px-6">
 
     <div class="text-center mb-16">
-      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Our Founders</p>
-      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon">The Minds at Work.</h2>
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Our founders</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon">The minds at work.</h2>
       <div class="section-divider mx-auto mt-5"></div>
     </div>
 
     <div class="grid md:grid-cols-2 gap-10">
 
-      <!-- ── Swetha ── -->
+      <!-- Swetha -->
       <div class="card-shadow bg-white rounded-2xl overflow-hidden border border-tan/40">
-        <!-- Top accent bar -->
         <div class="h-1.5 bg-gradient-to-r from-crimson to-maroon"></div>
         <div class="p-8 flex flex-col gap-5">
-
-          <!-- Avatar + name -->
           <div class="flex items-center gap-5">
             <div class="w-16 h-16 rounded-2xl bg-crimson/10 border border-crimson/15 flex items-center justify-center flex-shrink-0">
-              <!-- Biotech / DNA icon -->
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <circle cx="16" cy="16" r="13" fill="#A31D1D" opacity="0.08"/>
                 <path d="M10 8c0 0 2 2 2 4s-2 4-2 4" stroke="#A31D1D" stroke-width="1.8" stroke-linecap="round"/>
                 <path d="M22 8c0 0-2 2-2 4s2 4 2 4" stroke="#6D2323" stroke-width="1.8" stroke-linecap="round"/>
@@ -146,45 +138,38 @@
             <div>
               <h2 class="font-serif text-xl font-bold text-maroon leading-tight">Swetha Raj</h2>
               <p class="text-crimson text-xs font-semibold uppercase tracking-wider mt-0.5">Founder</p>
-              <p class="text-maroon/50 text-xs font-medium mt-0.5">Biotechnology Engineer</p>
+              <p class="text-maroon/50 text-xs font-medium mt-0.5">Biotechnology engineer</p>
             </div>
           </div>
 
-          <!-- Divider -->
           <div class="border-t border-tan"></div>
 
-          <!-- Bio -->
           <p class="text-maroon/70 text-sm leading-relaxed">
-            Dedicated to bridging the gap between clinical science and operational excellence. Swetha leverages her technical background to identify inefficiencies in clinical workflows and transform fragmented patient data into actionable insights for growth.
+            Swetha's background in biotechnology gives CDI its clinical credibility. She leads the data analysis side of the service — identifying dormant patient revenue in clinic databases and turning raw exports into clear, actionable reports.
           </p>
 
-          <!-- Tags -->
           <div class="flex flex-wrap gap-2">
             <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Biotechnology</span>
-            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Clinical Workflows</span>
-            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Revenue Intelligence</span>
+            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Clinical data analysis</span>
+            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Revenue recovery</span>
           </div>
 
-          <!-- Email -->
           <div class="mt-auto pt-4 border-t border-tan">
-            <a id="swetha-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors group">
+            <a id="swetha-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               <span id="swetha-email-text">swetharaj&#64;clinicaldataintelligence&#46;uk</span>
             </a>
           </div>
-
         </div>
       </div>
 
-      <!-- ── Rajdeep ── -->
+      <!-- Rajdeep -->
       <div class="card-shadow bg-white rounded-2xl overflow-hidden border border-tan/40">
         <div class="h-1.5 bg-gradient-to-r from-maroon to-crimson"></div>
         <div class="p-8 flex flex-col gap-5">
-
           <div class="flex items-center gap-5">
             <div class="w-16 h-16 rounded-2xl bg-maroon/8 border border-maroon/12 flex items-center justify-center flex-shrink-0">
-              <!-- Code / architecture icon -->
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <circle cx="16" cy="16" r="13" fill="#6D2323" opacity="0.08"/>
                 <polyline points="11,12 7,16 11,20" stroke="#6D2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <polyline points="21,12 25,16 21,20" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -193,30 +178,29 @@
             </div>
             <div>
               <h2 class="font-serif text-xl font-bold text-maroon leading-tight">Rajdeep Chauhan</h2>
-              <p class="text-crimson text-xs font-semibold uppercase tracking-wider mt-0.5">Co-founder &amp; Technical Architect</p>
-              <p class="text-maroon/50 text-xs font-medium mt-0.5">UK-Based · Systems &amp; Infrastructure</p>
+              <p class="text-crimson text-xs font-semibold uppercase tracking-wider mt-0.5">Co-founder &amp; technical lead</p>
+              <p class="text-maroon/50 text-xs font-medium mt-0.5">UK-based &middot; systems &amp; infrastructure</p>
             </div>
           </div>
 
           <div class="border-t border-tan"></div>
 
           <p class="text-maroon/70 text-sm leading-relaxed">
-            A specialist in software architecture and systems integration, Rajdeep leads the technical development of CDI. Based in the UK, he oversees the automation frameworks and API integrations that allow clinics to securely manage, clean, and reactivate their patient databases.
+            Rajdeep handles the technical infrastructure that makes CDI's service possible. Based in the UK, he oversees the secure data handling pipeline, ensuring clinic files are processed safely and delivered back cleanly — every time.
           </p>
 
           <div class="flex flex-wrap gap-2">
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Software Architecture</span>
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Systems Integration</span>
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Automation</span>
+            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Software architecture</span>
+            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Systems integration</span>
+            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Secure infrastructure</span>
           </div>
 
           <div class="mt-auto pt-4 border-t border-tan">
-            <a id="rajdeep-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors group">
+            <a id="rajdeep-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               <span id="rajdeep-email-text">rajdeep.chauhan&#64;clinicaldataintelligence&#46;uk</span>
             </a>
           </div>
-
         </div>
       </div>
 
@@ -224,7 +208,7 @@
   </div>
 </section>
 
-<!-- ═══════ VALUES STRIP ═══════ -->
+<!-- VALUES STRIP -->
 <section class="bg-white py-16">
   <div class="max-w-5xl mx-auto px-6">
     <div class="grid sm:grid-cols-3 gap-6 text-center">
@@ -233,7 +217,7 @@
         <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
           <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Privacy First</h3>
+        <h3 class="font-serif text-lg font-bold text-maroon">Privacy first</h3>
         <p class="text-maroon/60 text-sm leading-relaxed">We never see patient names. Zero PII, by design.</p>
       </div>
 
@@ -241,7 +225,7 @@
         <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
           <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Fast Delivery</h3>
+        <h3 class="font-serif text-lg font-bold text-maroon">Fast delivery</h3>
         <p class="text-maroon/60 text-sm leading-relaxed">Every audit delivered within 48 hours. No exceptions.</p>
       </div>
 
@@ -249,35 +233,35 @@
         <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
           <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
         </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Real Numbers</h3>
-        <p class="text-maroon/60 text-sm leading-relaxed">Exact patient IDs and revenue figures. No estimates or guesswork.</p>
+        <h3 class="font-serif text-lg font-bold text-maroon">Honest numbers</h3>
+        <p class="text-maroon/60 text-sm leading-relaxed">Modelled revenue estimates based on your actual data — no invented figures.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ═══════ CTA STRIP ═══════ -->
+<!-- CTA STRIP -->
 <section class="bg-maroon py-16 lg:py-20 relative overflow-hidden">
   <div class="absolute inset-0 pointer-events-none opacity-10">
     <svg width="100%" height="100%"><defs><pattern id="pgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FEF9E1" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#pgrid)"/></svg>
   </div>
   <div class="relative max-w-2xl mx-auto px-6 text-center">
     <h2 class="font-serif text-3xl lg:text-4xl font-bold text-cream mb-4">Ready to see what your data can do?</h2>
-    <p class="text-cream/65 text-sm leading-relaxed mb-8 max-w-md mx-auto">Get your free 48-hour revenue recovery audit. No commitment, no PII required, no catch.</p>
+    <p class="text-cream/65 text-sm leading-relaxed mb-8 max-w-md mx-auto">Start your free 48-hour revenue recovery audit. No commitment, no patient data required, no catch.</p>
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="index.html#data-drop" class="inline-flex items-center gap-2 bg-tan hover:bg-cream text-maroon font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md text-sm group">
-        Request Free Audit
+        Start free audit
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
       <a href="index.html#contact-section" class="inline-flex items-center gap-2 border-2 border-white/20 hover:border-tan text-cream hover:text-tan font-semibold px-7 py-3.5 rounded-full transition-all duration-200 text-sm">
-        Send Us a Message
+        Send us a message
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════ FOOTER ═══════ -->
+<!-- FOOTER -->
 <footer class="bg-maroon py-10 border-t border-white/10">
   <div class="max-w-6xl mx-auto px-6">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -285,7 +269,7 @@
         <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg>
         <span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span>
       </div>
-      <p class="text-cream/50 text-xs text-center">© 2026 Clinical Data Intelligence. All rights reserved.</p>
+      <p class="text-cream/50 text-xs text-center">&copy; 2026 Clinical Data Intelligence. All rights reserved.</p>
       <a id="footer-email-link" href="#" class="flex items-center gap-2 text-tan hover:text-cream text-xs font-medium transition-colors">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         contact&#64;clinicaldataintelligence&#46;uk
@@ -293,41 +277,39 @@
     </div>
     <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
       <span class="text-cream/40">GDPR compliant</span>
-      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="hidden sm:block text-cream/20">&middot;</span>
       <span class="text-cream/40">ICO registered</span>
-      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="hidden sm:block text-cream/20">&middot;</span>
       <span class="text-cream/40">No PII processed</span>
-      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="hidden sm:block text-cream/20">&middot;</span>
       <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a>
-      <span class="hidden sm:block text-cream/20">·</span>
+      <span class="hidden sm:block text-cream/20">&middot;</span>
       <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // Navbar shadow on scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
   });
 
-  // Build all email addresses at runtime — Cloudflare cannot encode what isn't a plain string in the HTML
   (function () {
     var d = 'clinicaldataintelligence' + '\u002e' + 'uk';
-    var sw = document.getElementById('swetha-email-link');
+    var sw  = document.getElementById('swetha-email-link');
     var swt = document.getElementById('swetha-email-text');
-    var rj = document.getElementById('rajdeep-email-link');
+    var rj  = document.getElementById('rajdeep-email-link');
     var rjt = document.getElementById('rajdeep-email-text');
-    var ft = document.getElementById('footer-email-link');
-    var swEmail  = 'swetharaj' + '\u0040' + d;
-    var rjEmail  = 'rajdeep.chauhan' + '\u0040' + d;
-    var ctEmail  = 'contact' + '\u0040' + d;
-    if (sw)  sw.href  = 'mailto:' + swEmail;
+    var ft  = document.getElementById('footer-email-link');
+    var swEmail = 'swetharaj'       + '\u0040' + d;
+    var rjEmail = 'rajdeep.chauhan' + '\u0040' + d;
+    var ctEmail = 'contact'         + '\u0040' + d;
+    if (sw)  sw.href = 'mailto:' + swEmail;
     if (swt) swt.textContent = swEmail;
-    if (rj)  rj.href  = 'mailto:' + rjEmail;
+    if (rj)  rj.href = 'mailto:' + rjEmail;
     if (rjt) rjt.textContent = rjEmail;
-    if (ft)  { ft.href = 'mailto:' + ctEmail; ft.querySelector('span') && (ft.querySelector('span').textContent = ctEmail); }
+    if (ft)  { ft.href = 'mailto:' + ctEmail; ft.textContent = ctEmail; }
   })();
 </script>
 
