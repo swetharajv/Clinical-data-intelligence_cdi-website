@@ -3,315 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our team | Clinical Data Intelligence</title>
+  <title>Our Team | CDI</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream: '#FEF9E1',
-            tan: '#E5D0AC',
-            crimson: '#A31D1D',
-            maroon: '#6D2323',
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['"Playfair Display"', 'serif'],
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(24px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-          },
-          animation: {
-            fadeUp: 'fadeUp 0.7s ease both',
-            fadeUpD1: 'fadeUp 0.7s 0.15s ease both',
-            fadeUpD2: 'fadeUp 0.7s 0.30s ease both',
-          },
-        },
-      },
-    };
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
-
-  <style>
-    body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 180px; opacity: 0.45;
-    }
-    .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #A31D1D, #6D2323); border-radius: 2px; }
-    .nav-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-    .card-shadow { box-shadow: 0 4px 24px rgba(109,35,35,0.07); transition: box-shadow 0.25s ease, transform 0.25s ease; }
-    .card-shadow:hover { box-shadow: 0 12px 40px rgba(109,35,35,0.14); transform: translateY(-3px); }
-    .dot-grid {
-      background-image: radial-gradient(circle, #E5D0AC 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-cream font-sans text-maroon antialiased relative">
+<body class="bg-slate-50 font-sans text-slate-900">
 
-<!-- NAVBAR -->
-<header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
-  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-3">
-      <img src="logo.png" alt="CDI Logo" class="h-10 w-auto" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex';" />
-      <div id="logo-fallback" class="hidden items-center gap-2">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#6D2323"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#A31D1D" stroke="#FEF9E1" stroke-width="1.5"/></svg>
-        <span class="font-serif font-bold text-maroon text-lg tracking-tight">CDI</span>
-      </div>
-    </a>
-    <div class="flex items-center gap-2 sm:gap-4">
-      <a href="https://drive.google.com/drive/folders/1pw_w_a1qbQtDsrLxXj4fXtR-57CPk3-t?usp=sharing" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        GDPR docs
-      </a>
-      <a href="index.html#contact-section" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        Contact
-      </a>
-      <a href="index.html#data-drop" class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm whitespace-nowrap">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        <span class="sm:hidden">Free audit</span>
-        <span class="hidden sm:inline">Start free audit</span>
-      </a>
-    </div>
-  </nav>
-</header>
+<section class="py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <a href="index.html" class="text-sm font-semibold text-blue-600">← Back to Home</a>
+    <h1 class="text-4xl font-extrabold mt-6">The expertise behind CDI.</h1>
+    <p class="text-lg text-slate-600 mt-4">We combine clinical science with software architecture to solve data retention problems for UK private clinics.</p>
 
-<!-- HERO -->
-<section class="relative bg-maroon overflow-hidden py-20 lg:py-28">
-  <div class="absolute inset-0 dot-grid opacity-10 pointer-events-none"></div>
-  <div class="absolute top-0 right-0 w-72 h-72 bg-crimson/20 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-56 h-56 bg-tan/10 rounded-full blur-3xl pointer-events-none"></div>
-
-  <div class="relative max-w-4xl mx-auto px-6 text-center">
-    <div class="animate-fadeUp inline-flex items-center gap-2 bg-white/10 border border-white/20 text-tan text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-      <span class="w-1.5 h-1.5 rounded-full bg-tan inline-block"></span>
-      The people behind CDI
-    </div>
-    <h1 class="animate-fadeUpD1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-6">
-      The people<br/>
-      <span style="background: linear-gradient(135deg, #E5D0AC 0%, #FEF9E1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">behind CDI.</span>
-    </h1>
-    <p class="animate-fadeUpD2 text-cream/65 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
-      A clinical scientist and a software architect — two disciplines, one mission: turning fragmented clinic data into recoverable revenue.
-    </p>
-  </div>
-</section>
-
-<!-- TEAM CARDS -->
-<section class="py-20 lg:py-28 bg-cream">
-  <div class="max-w-5xl mx-auto px-6">
-
-    <div class="text-center mb-16">
-      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">Our founders</p>
-      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon">The minds at work.</h2>
-      <div class="section-divider mx-auto mt-5"></div>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-10">
-
-      <!-- Swetha -->
-      <div class="card-shadow bg-white rounded-2xl overflow-hidden border border-tan/40">
-        <div class="h-1.5 bg-gradient-to-r from-crimson to-maroon"></div>
-        <div class="p-8 flex flex-col gap-5">
-          <div class="flex items-center gap-5">
-            <div class="w-16 h-16 rounded-2xl bg-crimson/10 border border-crimson/15 flex items-center justify-center flex-shrink-0">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="13" fill="#A31D1D" opacity="0.08"/>
-                <path d="M10 8c0 0 2 2 2 4s-2 4-2 4" stroke="#A31D1D" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M22 8c0 0-2 2-2 4s2 4 2 4" stroke="#6D2323" stroke-width="1.8" stroke-linecap="round"/>
-                <line x1="10" y1="11" x2="22" y2="11" stroke="#A31D1D" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-                <line x1="10" y1="13" x2="22" y2="13" stroke="#6D2323" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-                <path d="M10 16c0 0 2 2 2 4s-2 4-2 4" stroke="#A31D1D" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M22 16c0 0-2 2-2 4s2 4 2 4" stroke="#6D2323" stroke-width="1.8" stroke-linecap="round"/>
-                <line x1="10" y1="19" x2="22" y2="19" stroke="#A31D1D" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-                <line x1="10" y1="21" x2="22" y2="21" stroke="#6D2323" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="font-serif text-xl font-bold text-maroon leading-tight">Swetha Raj</h2>
-              <p class="text-crimson text-xs font-semibold uppercase tracking-wider mt-0.5">Founder</p>
-              <p class="text-maroon/50 text-xs font-medium mt-0.5">Biotechnology engineer</p>
-            </div>
-          </div>
-
-          <div class="border-t border-tan"></div>
-
-          <p class="text-maroon/70 text-sm leading-relaxed">
-            Swetha's background in biotechnology gives CDI its clinical credibility. She leads the data analysis side of the service — identifying dormant patient revenue in clinic databases and turning raw exports into clear, actionable reports.
-          </p>
-
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Biotechnology</span>
-            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Clinical data analysis</span>
-            <span class="text-xs font-semibold bg-crimson/8 text-crimson px-3 py-1 rounded-full border border-crimson/15">Revenue recovery</span>
-          </div>
-
-          <div class="mt-auto pt-4 border-t border-tan">
-            <a id="swetha-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <span id="swetha-email-text">swetharaj&#64;clinicaldataintelligence&#46;uk</span>
-            </a>
-          </div>
-        </div>
+    <div class="grid md:grid-cols-2 gap-8 mt-12">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-bold">Swetha Raj</h2>
+        <p class="text-blue-600 text-sm font-bold uppercase tracking-wide mt-1">Clinical Data Strategy</p>
+        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Biotechnology engineer specializing in identifying dormant patient revenue. Swetha turns clinical exports into actionable reports for reception teams.</p>
       </div>
 
-      <!-- Rajdeep -->
-      <div class="card-shadow bg-white rounded-2xl overflow-hidden border border-tan/40">
-        <div class="h-1.5 bg-gradient-to-r from-maroon to-crimson"></div>
-        <div class="p-8 flex flex-col gap-5">
-          <div class="flex items-center gap-5">
-            <div class="w-16 h-16 rounded-2xl bg-maroon/8 border border-maroon/12 flex items-center justify-center flex-shrink-0">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="13" fill="#6D2323" opacity="0.08"/>
-                <polyline points="11,12 7,16 11,20" stroke="#6D2323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="21,12 25,16 21,20" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <line x1="18" y1="10" x2="14" y2="22" stroke="#6D2323" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="font-serif text-xl font-bold text-maroon leading-tight">Rajdeep Chauhan</h2>
-              <p class="text-crimson text-xs font-semibold uppercase tracking-wider mt-0.5">Co-founder &amp; technical lead</p>
-              <p class="text-maroon/50 text-xs font-medium mt-0.5">UK-based &middot; systems &amp; infrastructure</p>
-            </div>
-          </div>
-
-          <div class="border-t border-tan"></div>
-
-          <p class="text-maroon/70 text-sm leading-relaxed">
-            Rajdeep handles the technical infrastructure that makes CDI's service possible. Based in the UK, he oversees the secure data handling pipeline, ensuring clinic files are processed safely and delivered back cleanly — every time.
-          </p>
-
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Software architecture</span>
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Systems integration</span>
-            <span class="text-xs font-semibold bg-maroon/8 text-maroon px-3 py-1 rounded-full border border-maroon/12">Secure infrastructure</span>
-          </div>
-
-          <div class="mt-auto pt-4 border-t border-tan">
-            <a id="rajdeep-email-link" href="#" class="inline-flex items-center gap-2 text-crimson hover:text-maroon text-sm font-medium transition-colors">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <span id="rajdeep-email-text">rajdeep.chauhan&#64;clinicaldataintelligence&#46;uk</span>
-            </a>
-          </div>
-        </div>
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-bold">Rajdeep Chauhan</h2>
+        <p class="text-blue-600 text-sm font-bold uppercase tracking-wide mt-1">Technical Lead</p>
+        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Systems architect based in the UK. Rajdeep manages the secure infrastructure and data handling pipelines to ensure 100% GDPR compliance.</p>
       </div>
-
     </div>
   </div>
 </section>
-
-<!-- VALUES STRIP -->
-<section class="bg-white py-16">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="grid sm:grid-cols-3 gap-6 text-center">
-
-      <div class="flex flex-col items-center gap-3 p-6">
-        <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
-          <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Privacy first</h3>
-        <p class="text-maroon/60 text-sm leading-relaxed">We never see patient names. Zero PII, by design.</p>
-      </div>
-
-      <div class="flex flex-col items-center gap-3 p-6">
-        <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
-          <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Fast delivery</h3>
-        <p class="text-maroon/60 text-sm leading-relaxed">Every audit delivered within 48 hours. No exceptions.</p>
-      </div>
-
-      <div class="flex flex-col items-center gap-3 p-6">
-        <div class="w-12 h-12 rounded-xl bg-crimson/10 flex items-center justify-center">
-          <svg class="w-6 h-6 text-crimson" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        </div>
-        <h3 class="font-serif text-lg font-bold text-maroon">Honest numbers</h3>
-        <p class="text-maroon/60 text-sm leading-relaxed">Modelled revenue estimates based on your actual data — no invented figures.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CTA STRIP -->
-<section class="bg-maroon py-16 lg:py-20 relative overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none opacity-10">
-    <svg width="100%" height="100%"><defs><pattern id="pgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FEF9E1" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#pgrid)"/></svg>
-  </div>
-  <div class="relative max-w-2xl mx-auto px-6 text-center">
-    <h2 class="font-serif text-3xl lg:text-4xl font-bold text-cream mb-4">Ready to see what your data can do?</h2>
-    <p class="text-cream/65 text-sm leading-relaxed mb-8 max-w-md mx-auto">Start your free 48-hour revenue recovery audit. No commitment, no patient data required, no catch.</p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="index.html#data-drop" class="inline-flex items-center gap-2 bg-tan hover:bg-cream text-maroon font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md text-sm group">
-        Start free audit
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
-      <a href="index.html#contact-section" class="inline-flex items-center gap-2 border-2 border-white/20 hover:border-tan text-cream hover:text-tan font-semibold px-7 py-3.5 rounded-full transition-all duration-200 text-sm">
-        Send us a message
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-maroon py-10 border-t border-white/10">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg>
-        <span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span>
-      </div>
-      <p class="text-cream/50 text-xs text-center">&copy; 2026 Clinical Data Intelligence. All rights reserved.</p>
-      <a id="footer-email-link" href="#" class="flex items-center gap-2 text-tan hover:text-cream text-xs font-medium transition-colors">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        contact&#64;clinicaldataintelligence&#46;uk
-      </a>
-    </div>
-    <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
-      <span class="text-cream/40">GDPR compliant</span>
-      <span class="hidden sm:block text-cream/20">&middot;</span>
-      <span class="text-cream/40">ICO registered</span>
-      <span class="hidden sm:block text-cream/20">&middot;</span>
-      <span class="text-cream/40">No PII processed</span>
-      <span class="hidden sm:block text-cream/20">&middot;</span>
-      <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a>
-      <span class="hidden sm:block text-cream/20">&middot;</span>
-      <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
-  });
-
-  (function () {
-    var d = 'clinicaldataintelligence' + '\u002e' + 'uk';
-    var sw  = document.getElementById('swetha-email-link');
-    var swt = document.getElementById('swetha-email-text');
-    var rj  = document.getElementById('rajdeep-email-link');
-    var rjt = document.getElementById('rajdeep-email-text');
-    var ft  = document.getElementById('footer-email-link');
-    var swEmail = 'swetharaj'       + '\u0040' + d;
-    var rjEmail = 'rajdeep.chauhan' + '\u0040' + d;
-    var ctEmail = 'contact'         + '\u0040' + d;
-    if (sw)  sw.href = 'mailto:' + swEmail;
-    if (swt) swt.textContent = swEmail;
-    if (rj)  rj.href = 'mailto:' + rjEmail;
-    if (rjt) rjt.textContent = rjEmail;
-    if (ft)  { ft.href = 'mailto:' + ctEmail; ft.textContent = ctEmail; }
-  })();
-</script>
 
 </body>
 </html>
