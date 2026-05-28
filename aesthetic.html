@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard intelligence for aesthetic clinic groups | Clinical Data Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream:'#FEF9E1', tan:'#E5D0AC', crimson:'#A31D1D', maroon:'#6D2323' },
+          fontFamily: { sans:['Inter','sans-serif'], serif:['"Playfair Display"','serif'] },
+          keyframes: {
+            fadeUp: { '0%':{ opacity:'0', transform:'translateY(20px)' }, '100%':{ opacity:'1', transform:'translateY(0)' } },
+          },
+          animation: { fadeUp:'fadeUp 0.7s ease both', fadeUpD1:'fadeUp 0.7s 0.15s ease both', fadeUpD2:'fadeUp 0.7s 0.30s ease both' },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:180px;opacity:0.45}
+    .section-divider{width:60px;height:3px;background:linear-gradient(90deg,#A31D1D,#6D2323);border-radius:2px}
+    .card-hover{transition:transform 0.25s ease,box-shadow 0.25s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(109,35,35,0.12)}
+    .nav-scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08)}
+    .form-field{width:100%;border:1.5px solid #E5D0AC;border-radius:10px;padding:12px 16px;font-size:14px;color:#6D2323;background:white;outline:none;transition:border-color 0.2s ease;font-family:'Inter',sans-serif}
+    .form-field:focus{border-color:#A31D1D}
+    .form-field::placeholder{color:rgba(109,35,35,0.35)}
+    .drop-bg{background:linear-gradient(135deg,#6D2323 0%,#A31D1D 100%)}
+  </style>
+</head>
+<body class="bg-cream font-sans text-maroon antialiased relative">
+
+<!-- NAVBAR -->
+<header id="navbar" class="sticky top-0 z-50 bg-white transition-shadow duration-300">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="logo.png" alt="CDI logo" class="h-10 w-auto" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex';"/>
+      <div id="logo-fallback" class="hidden items-center gap-2">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#6D2323"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#A31D1D" stroke="#FEF9E1" stroke-width="1.5"/></svg>
+        <span class="font-serif font-bold text-maroon text-lg tracking-tight">CDI</span>
+      </div>
+    </a>
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a href="index.html" class="text-sm font-medium text-maroon/70 hover:text-crimson transition-colors">← Back to main site</a>
+      <a href="#aesthetic-contact" class="inline-flex items-center gap-1.5 bg-crimson hover:bg-maroon text-cream text-xs sm:text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200 shadow-sm">Book a free demo</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-maroon">
+  <div class="absolute inset-0 pointer-events-none opacity-10">
+    <svg width="100%" height="100%"><defs><pattern id="pgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FEF9E1" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#pgrid)"/></svg>
+  </div>
+  <div class="relative max-w-5xl mx-auto px-6 py-20 lg:py-28">
+    <div class="max-w-2xl">
+      <div class="animate-fadeUp inline-flex items-center gap-2 bg-white/10 border border-white/20 text-tan text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        For aesthetic clinic groups
+      </div>
+      <h1 class="animate-fadeUpD1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-[1.1] mb-5">
+        Running multiple clinics means multiple blind spots.
+      </h1>
+      <p class="animate-fadeUpD2 text-cream/70 text-lg leading-relaxed mb-8 max-w-lg">
+        Aesthetic groups face a problem that single-site clinics don&rsquo;t: comparing performance across locations with inconsistent data, different booking systems, and no single view of the whole operation. CDI builds that view &mdash; and tells you what it means each month.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#aesthetic-contact" class="inline-flex items-center justify-center gap-2 bg-tan hover:bg-cream text-maroon font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg group">
+          Book a free demo
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="/demo" class="inline-flex items-center justify-center gap-2 border-2 border-white/25 hover:border-tan text-cream hover:text-tan font-semibold px-8 py-4 rounded-full transition-all duration-200">
+          See live demo &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTI-SITE PROBLEM -->
+<section class="bg-white py-20 lg:py-24">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-3">The multi-site challenge</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-maroon leading-tight">What gets harder when you scale to multiple locations.</h2>
+      <div class="section-divider mx-auto mt-5"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 mb-12">
+      <div class="bg-cream border border-tan rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-lg bg-crimson/10 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+        <h3 class="font-serif text-base font-bold text-maroon mb-2">Data lives in separate systems</h3>
+        <p class="text-maroon/65 text-sm leading-relaxed">Each clinic may run different booking software, export different formats, and track different fields. Comparing them is a manual spreadsheet exercise every month.</p>
+      </div>
+      <div class="bg-cream border border-tan rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-lg bg-crimson/10 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3 class="font-serif text-base font-bold text-maroon mb-2">Practitioner performance is invisible at group level</h3>
+        <p class="text-maroon/65 text-sm leading-relaxed">You might know each clinic&rsquo;s total revenue. You almost certainly don&rsquo;t know which practitioner across all your sites generates the most per clinical hour.</p>
+      </div>
+      <div class="bg-cream border border-tan rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-lg bg-crimson/10 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A31D1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3 class="font-serif text-base font-bold text-maroon mb-2">No single view of group performance</h3>
+        <p class="text-maroon/65 text-sm leading-relaxed">Decisions get made on gut instinct and individual clinic reports, not on a consolidated view that shows which site is underperforming and why.</p>
+      </div>
+    </div>
+
+    <!-- What CDI provides for groups -->
+    <div class="bg-maroon rounded-2xl p-8 lg:p-10">
+      <div class="grid lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <p class="text-tan text-xs font-semibold uppercase tracking-wider mb-3">What CDI builds for groups</p>
+          <h3 class="font-serif text-2xl lg:text-3xl font-bold text-cream mb-4">One dashboard. Every location. One written memo that covers the whole group.</h3>
+          <p class="text-cream/65 text-sm leading-relaxed">We standardise data across all your sites, build a consolidated group dashboard with per-location drill-down, and write you a monthly memo that tells you which clinic is your strongest performer, which has a problem, and exactly what the numbers say.</p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4">
+            <svg class="w-5 h-5 text-tan flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <p class="text-cream/80 text-sm">Cross-location revenue per hour comparison</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4">
+            <svg class="w-5 h-5 text-tan flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <p class="text-cream/80 text-sm">Treatment mix benchmarking between sites</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4">
+            <svg class="w-5 h-5 text-tan flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <p class="text-cream/80 text-sm">Executive summary view for group owners</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4">
+            <svg class="w-5 h-5 text-tan flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <p class="text-cream/80 text-sm">Works across mixed booking software setups</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="aesthetic-contact" class="drop-bg py-20 lg:py-28">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="text-cream/60 text-xs font-semibold uppercase tracking-widest mb-3">Get started</p>
+      <h2 class="font-serif text-3xl lg:text-4xl font-bold text-cream leading-tight">Tell us about your group.</h2>
+      <p class="text-cream/65 mt-4 max-w-lg mx-auto text-sm leading-relaxed">We&rsquo;ll show you what a consolidated group dashboard looks like for a multi-site aesthetic operation and tell you honestly what&rsquo;s involved in setting it up for yours.</p>
+    </div>
+    <form name="aesthetic-enquiry" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="bg-white rounded-2xl border border-tan/60 shadow-sm p-8 flex flex-col gap-5">
+      <input type="hidden" name="form-name" value="aesthetic-enquiry" />
+      <input type="hidden" name="bot-field" style="display:none" />
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Your name <span class="text-crimson">*</span></label><input type="text" name="name" required placeholder="Dr. Jane Smith" class="form-field"/></div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Group or clinic name</label><input type="text" name="group" placeholder="Smith Aesthetics Group" class="form-field"/></div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Email address <span class="text-crimson">*</span></label><input type="email" name="email" required placeholder="jane@yourgroup.co.uk" class="form-field"/></div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">Number of locations</label><select name="locations" class="form-field"><option value="" disabled selected>Select…</option><option>2 locations</option><option>3–5 locations</option><option>6–10 locations</option><option>10+ locations</option></select></div>
+      </div>
+      <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-maroon/60 uppercase tracking-wider">What would you like to know? <span class="text-crimson">*</span></label><textarea name="message" required rows="4" placeholder="Tell us about your group — how many sites, what booking software each uses, and what you're currently unable to see across your operation." class="form-field resize-none"></textarea></div>
+      <button type="submit" class="w-full bg-crimson hover:bg-maroon text-cream font-semibold py-3.5 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm">Send enquiry <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+      <p class="text-center text-maroon/40 text-xs">We respond within one business day. No commitment required.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-maroon py-10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <a href="index.html" class="flex items-center gap-3"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#A31D1D"/><path d="M8 22L12 15L16 18L20 11L24 14" stroke="#FEF9E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="10" r="2" fill="#E5D0AC" stroke="#FEF9E1" stroke-width="1.5"/></svg><span class="font-serif font-bold text-cream text-base tracking-tight">Clinical Data Intelligence</span></a>
+      <p class="text-cream/50 text-xs text-center">&copy; 2026 Clinical Data Intelligence. All rights reserved.</p>
+      <span class="text-tan text-xs font-medium">contact&#64;clinicaldataintelligence&#46;uk</span>
+    </div>
+    <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs">
+      <a href="index.html" class="text-tan hover:text-cream transition-colors font-medium">Main site</a><span class="hidden sm:block text-cream/20">&middot;</span>
+      <a href="dental.html" class="text-tan hover:text-cream transition-colors font-medium">Dental and GP clinics</a><span class="hidden sm:block text-cream/20">&middot;</span>
+      <a href="privacy.html" class="text-tan hover:text-cream transition-colors font-medium">Privacy policy</a><span class="hidden sm:block text-cream/20">&middot;</span>
+      <a href="team.html" class="text-tan hover:text-cream transition-colors font-medium">Our team</a>
+    </div>
+  </div>
+</footer>
+<script>
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{ navbar.classList.toggle('nav-scrolled',window.scrollY>10); });
+</script>
+</body>
+</html>
