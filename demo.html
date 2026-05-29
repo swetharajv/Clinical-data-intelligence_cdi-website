@@ -3,921 +3,981 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apex Aesthetics — CDI Intelligence Dashboard</title>
+<title id="page-title">CDI Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ════════════════════════════════════════════════════════════════════
+     CDI CLIENT DASHBOARD TEMPLATE
+     ════════════════════════════════════════════════════════════════════
+     HOW TO USE THIS FILE FOR A NEW CLIENT:
+     
+     1. Find the section marked "CLIENT DATA — EDIT THIS SECTION"
+     2. Replace all values with the client's real numbers
+     3. Upload the file to Netlify as: clients/[clinicname].html
+     4. Send the URL to the client
+     
+     You only need to know how to change numbers and text.
+     Do NOT touch anything outside the CLIENT DATA section.
+     ════════════════════════════════════════════════════════════════════ -->
+
 <style>
 :root{
-  --maroon-deep:#3D0C0C;
+  --maroon:#3D0C0C;
   --maroon-mid:#6B1515;
-  --maroon-bright:#8B1A1A;
-  --maroon-light:#C0292A;
-  --maroon-pale:#FAE8E8;
-  --teal-deep:#0E2931;
-  --teal-mid:#12484C;
-  --teal-bright:#2B7574;
-  --teal-light:#4A9E9C;
-  --teal-pale:#E0EFEE;
-  --cream:#F5F0EB;
-  --grey-light:#E8E4E0;
-  --grey-mid:#B0A8A0;
+  --crimson:#8B1A1A;
+  --crimson-light:#C0292A;
+  --cream:#F5EFE6;
+  --cream-dark:#EDE4D8;
+  --tan:#D4B896;
   --white:#FFFFFF;
-  --text-dark:#1A0A0A;
-  --text-muted:#6B5A5A;
-  --amber:#B87F00;
-  --amber-pale:#FEF3D0;
+  --text:#1A0505;
+  --muted:#6B4E4E;
   --green:#1A6B4A;
   --green-pale:#E4F2EC;
-  --sidebar-w:68px;
-  --topbar-h:60px;
+  --amber:#B87F00;
+  --amber-pale:#FEF3D0;
+  --red-pale:#FAE8E8;
+  --sidebar:68px;
+  --topbar:58px;
+  --radius:12px;
+  --shadow:0 2px 16px rgba(61,12,12,.07);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);display:flex}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);display:flex}
 
-/* ══ SIDEBAR ══════════════════════════════════════ */
-.sidebar{
-  width:var(--sidebar-w);min-height:100vh;background:var(--maroon-deep);
-  display:flex;flex-direction:column;align-items:center;
-  padding:0;position:fixed;left:0;top:0;z-index:20;
-}
-.sidebar-logo{
-  width:100%;padding:16px 0;display:flex;flex-direction:column;
-  align-items:center;border-bottom:1px solid rgba(255,255,255,.08);
-  cursor:pointer;
-}
-.logo-mark{
-  width:36px;height:36px;background:var(--maroon-mid);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'DM Serif Display',serif;font-size:14px;color:var(--cream);
-}
-.sidebar-nav{flex:1;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px;width:100%}
-.nav-btn{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all .15s;position:relative;
-  border:none;background:transparent;
-}
-.nav-btn svg{width:20px;height:20px;stroke:rgba(255,255,255,.35);stroke-width:1.8;fill:none;transition:stroke .15s}
-.nav-btn:hover{background:rgba(255,255,255,.06)}
-.nav-btn:hover svg{stroke:rgba(255,255,255,.7)}
-.nav-btn.active{background:var(--maroon-mid)}
-.nav-btn.active svg{stroke:var(--cream)}
-.nav-tooltip{
-  position:absolute;left:calc(100% + 10px);background:var(--maroon-deep);
-  color:var(--cream);font-size:11px;white-space:nowrap;padding:4px 10px;
-  border-radius:5px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:99;
-}
-.nav-btn:hover .nav-tooltip{opacity:1}
-.sidebar-bottom{padding:16px 0;border-top:1px solid rgba(255,255,255,.08);width:100%;display:flex;justify-content:center}
-.demo-dot{width:8px;height:8px;border-radius:50%;background:var(--teal-light);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ── SIDEBAR ─────────────────────────────── */
+.sb{width:var(--sidebar);background:var(--maroon);display:flex;flex-direction:column;align-items:center;position:fixed;left:0;top:0;height:100vh;z-index:20;padding:0}
+.sb-logo{width:100%;padding:18px 0 14px;display:flex;justify-content:center;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer}
+.sb-logomark{width:34px;height:34px;background:var(--crimson);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--cream);font-weight:600;letter-spacing:.02em}
+.sb-nav{flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:2px;width:100%}
+.nb{width:44px;height:44px;border-radius:10px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative}
+.nb svg{width:19px;height:19px;stroke:rgba(255,255,255,.28);stroke-width:1.7;fill:none;transition:stroke .15s}
+.nb:hover{background:rgba(255,255,255,.05)}
+.nb:hover svg{stroke:rgba(255,255,255,.65)}
+.nb.on{background:var(--maroon-mid)}
+.nb.on svg{stroke:var(--cream)}
+.nb-tip{position:absolute;left:calc(100% + 10px);background:var(--maroon);color:var(--cream);font-size:11px;white-space:nowrap;padding:4px 10px;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:99;font-family:'DM Sans',sans-serif}
+.nb:hover .nb-tip{opacity:1}
+.sb-foot{padding:16px 0;border-top:1px solid rgba(255,255,255,.06);width:100%;display:flex;flex-direction:column;align-items:center;gap:8px}
+.sb-dot{width:8px;height:8px;border-radius:50%;background:var(--tan);animation:sbpulse 2.5s ease-in-out infinite}
+@keyframes sbpulse{0%,100%{opacity:.5}50%{opacity:1}}
+.sb-demo{font-size:8px;color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase}
 
-/* ══ MAIN ═════════════════════════════════════════ */
-.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+/* ── MAIN ────────────────────────────────── */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* ══ TOPBAR ═══════════════════════════════════════ */
-.topbar{
-  height:var(--topbar-h);background:var(--white);
-  border-bottom:1px solid var(--grey-light);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;flex-shrink:0;
-}
-.breadcrumb{display:flex;align-items:center;gap:8px}
-.breadcrumb-main{font-family:'DM Serif Display',serif;font-size:18px;color:var(--maroon-deep)}
-.breadcrumb-sep{color:var(--grey-mid);font-size:14px}
-.breadcrumb-sub{font-size:13px;color:var(--text-muted)}
-.topbar-right{display:flex;align-items:center;gap:12px}
+/* ── TOPBAR ──────────────────────────────── */
+.top{height:var(--topbar);background:var(--white);border-bottom:1px solid var(--cream-dark);display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex-shrink:0}
+.top-l{display:flex;align-items:center;gap:10px}
+.top-clinic{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--maroon);letter-spacing:.01em}
+.top-sep{color:var(--tan);font-size:14px}
+.top-page{font-size:13px;color:var(--muted);font-weight:500}
+.top-r{display:flex;align-items:center;gap:10px}
+.ptabs{display:flex;background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px;overflow:hidden}
+.pt{padding:6px 16px;font-size:11px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);letter-spacing:.03em;transition:all .15s;text-transform:uppercase}
+.pt.on{background:var(--maroon);color:var(--cream)}
+.pt:hover:not(.on){background:var(--cream-dark)}
+.top-tag{font-size:11px;color:var(--crimson);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.top-updated{font-size:10px;color:var(--muted);background:var(--cream);border:1px solid var(--cream-dark);padding:4px 10px;border-radius:20px}
 
-/* Period tabs */
-.period-tabs{display:flex;background:var(--cream);border:1px solid var(--grey-light);border-radius:8px;overflow:hidden}
-.ptab{
-  padding:6px 16px;font-size:12px;font-weight:500;cursor:pointer;
-  transition:all .15s;border:none;background:transparent;color:var(--text-muted);
-}
-.ptab.active{background:var(--maroon-bright);color:var(--white)}
-.ptab:hover:not(.active){background:var(--grey-light);color:var(--text-dark)}
+/* ── SCROLL AREA ─────────────────────────── */
+.scroll{flex:1;overflow-y:auto;padding:22px 26px 26px;background:var(--cream)}
+.scroll::-webkit-scrollbar{width:4px}
+.scroll::-webkit-scrollbar-thumb{background:var(--cream-dark);border-radius:2px}
 
-.clinic-pill{
-  background:var(--maroon-pale);color:var(--maroon-bright);
-  font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;
-}
-.cdi-tag{font-size:11px;color:var(--teal-bright);font-weight:500}
+/* ── PAGES ───────────────────────────────── */
+.pg{display:none;animation:pgIn .18s ease}
+.pg.on{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ══ CONTENT ══════════════════════════════════════ */
-.content-area{flex:1;overflow-y:auto;padding:24px 28px 28px;background:var(--cream)}
+/* ── KPI ROW ─────────────────────────────── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{background:var(--white);border-radius:var(--radius);padding:16px 18px 14px;border:1px solid var(--cream-dark);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px}
+.kpi.c-maroon::after{background:var(--crimson)}
+.kpi.c-green::after{background:var(--green)}
+.kpi.c-amber::after{background:var(--amber)}
+.kpi.c-teal::after{background:#2B7574}
+.kpi-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.kpi-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--maroon);line-height:1;letter-spacing:.01em}
+.kpi-delta{font-size:11px;margin-top:5px;font-weight:500}
+.up{color:var(--green)}.dn{color:var(--crimson)}.warn{color:var(--amber)}
 
-/* ══ PAGES ════════════════════════════════════════ */
-.page{display:none;animation:fadeIn .2s ease}
-.page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* ── CARDS ───────────────────────────────── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--white);border-radius:var(--radius);border:1px solid var(--cream-dark);padding:18px 20px;box-shadow:var(--shadow)}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.ct{font-size:13px;font-weight:600;color:var(--maroon)}
+.cs{font-size:11px;color:var(--muted);margin-top:2px}
+.badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.b-flag{background:var(--red-pale);color:var(--crimson)}
+.b-ok{background:var(--green-pale);color:var(--green)}
+.b-info{background:#E0EFEE;color:#12484C}
+.b-warn{background:var(--amber-pale);color:var(--amber)}
 
-/* ══ KPI GRID ═════════════════════════════════════ */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-.kpi{
-  background:var(--white);border-radius:10px;padding:18px 18px 14px;
-  border:1px solid var(--grey-light);position:relative;overflow:hidden;cursor:default;
-  transition:box-shadow .15s;
-}
-.kpi:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
-.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grey-light)}
-.kpi.maroon::after{background:var(--maroon-bright)}
-.kpi.teal::after{background:var(--teal-bright)}
-.kpi.amber::after{background:var(--amber)}
-.kpi.green::after{background:var(--green)}
-.kpi-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
-.kpi-val{font-family:'DM Serif Display',serif;font-size:30px;color:var(--maroon-deep);line-height:1}
-.kpi-delta{font-size:11px;margin-top:6px;font-weight:500}
-.up{color:var(--green)}.down{color:var(--maroon-bright)}.warn{color:var(--amber)}
+/* ── PRAC BARS ───────────────────────────── */
+.prac-list{display:flex;flex-direction:column;gap:12px}
+.pr{display:flex;align-items:center;gap:10px;cursor:pointer;padding:5px 7px;border-radius:8px;margin:-5px -7px;transition:background .12s}
+.pr:hover{background:var(--cream)}
+.pr-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.pr-name{width:88px;font-size:12px;font-weight:500;color:var(--text);flex-shrink:0}
+.pr-bg{flex:1;height:8px;background:var(--cream-dark);border-radius:4px;overflow:hidden}
+.pr-fill{height:100%;border-radius:4px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.pr-val{width:42px;text-align:right;font-size:12px;font-weight:600;color:var(--maroon);flex-shrink:0}
+.pr-badge{font-size:10px;padding:2px 7px;border-radius:4px;width:48px;text-align:center;font-weight:600;flex-shrink:0}
+.pr-arr{color:var(--cream-dark);font-size:14px;flex-shrink:0;transition:color .12s}
+.pr:hover .pr-arr{color:var(--crimson)}
 
-/* ══ CARD ═════════════════════════════════════════ */
-.card{background:var(--white);border-radius:10px;border:1px solid var(--grey-light);padding:20px 22px;transition:box-shadow .15s}
-.card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.card-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
-.card-title{font-size:13px;font-weight:600;color:var(--maroon-deep)}
-.card-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
-.tag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
-.tag-flag{background:var(--maroon-pale);color:var(--maroon-bright)}
-.tag-ok{background:var(--green-pale);color:var(--green)}
-.tag-info{background:var(--teal-pale);color:var(--teal-mid)}
-.tag-warn{background:var(--amber-pale);color:var(--amber)}
+/* ── HEATMAP ─────────────────────────────── */
+.hm{display:grid;grid-template-columns:50px repeat(5,1fr);gap:4px}
+.hm-hdr{font-size:10px;color:var(--muted);text-align:center;font-weight:600;letter-spacing:.04em;padding:2px 0}
+.hm-lbl{font-size:10px;color:var(--muted);display:flex;align-items:center}
+.hm-cell{border-radius:5px;height:34px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.hm-hi{background:#D0EDE5;color:#0A5A40}
+.hm-md{background:var(--amber-pale);color:#7A5500}
+.hm-lo{background:var(--red-pale);color:var(--crimson)}
 
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+/* ── TREATMENT TABLE ─────────────────────── */
+.tt{width:100%;border-collapse:collapse}
+.tt th{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:0 0 9px;border-bottom:1px solid var(--cream-dark);text-align:left}
+.tt th:not(:first-child){text-align:right}
+.tt td{padding:8px 0;font-size:12px;border-bottom:1px solid var(--cream);vertical-align:middle}
+.tt td:not(:first-child){text-align:right}
+.tt-name{font-weight:500;color:var(--maroon)}
+.chip{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600}
+.chip-ok{background:var(--green-pale);color:var(--green)}
+.chip-dn{background:var(--red-pale);color:var(--crimson)}
+.chip-wn{background:var(--amber-pale);color:var(--amber)}
 
-/* ══ MEMO CARD ════════════════════════════════════ */
-.memo{
-  background:var(--maroon-deep);border-radius:10px;padding:22px 26px;
-  margin-bottom:20px;position:relative;overflow:hidden;
-}
-.memo::before{
-  content:'';position:absolute;right:-60px;top:-60px;
-  width:200px;height:200px;border-radius:50%;
-  background:rgba(139,26,26,.3);
-}
-.memo::after{
-  content:'';position:absolute;right:60px;bottom:-40px;
-  width:120px;height:120px;border-radius:50%;
-  background:rgba(43,117,116,.15);
-}
-.memo-eye{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--teal-light);font-weight:600;margin-bottom:8px}
-.memo-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--cream);margin-bottom:10px}
-.memo-body{font-size:13px;color:rgba(245,240,235,.75);line-height:1.7;max-width:760px}
-.memo-action{margin-top:14px;font-size:12px;font-weight:600;color:var(--teal-light);display:flex;align-items:center;gap:6px}
-.memo-action::before{content:'→';color:var(--maroon-light)}
-
-/* ══ PRAC ROWS ════════════════════════════════════ */
-.prac-list{display:flex;flex-direction:column;gap:14px}
-.prac-row{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 8px;border-radius:7px;transition:background .12s;margin:-6px -8px}
-.prac-row:hover{background:var(--cream)}
-.prac-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
-.prac-name-label{width:90px;font-size:12px;font-weight:500;color:var(--text-dark);flex-shrink:0}
-.bar-bg{flex:1;height:9px;background:var(--grey-light);border-radius:5px;overflow:hidden}
-.bar-fill{height:100%;border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.prac-val-label{width:44px;text-align:right;font-size:12px;font-weight:600;color:var(--maroon-deep);flex-shrink:0}
-.prac-badge{font-size:10px;padding:2px 8px;border-radius:4px;width:50px;text-align:center;font-weight:600;flex-shrink:0}
-.prac-arrow{color:var(--grey-mid);font-size:14px;flex-shrink:0}
-
-/* ══ HEATMAP ══════════════════════════════════════ */
-.hm-wrap{display:grid;grid-template-columns:52px repeat(5,1fr);gap:5px}
-.hm-hdr{font-size:11px;color:var(--text-muted);text-align:center;font-weight:500;padding:2px 0}
-.hm-lbl{font-size:11px;color:var(--text-muted);display:flex;align-items:center}
-.hm-cell{border-radius:5px;height:36px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:default}
-.hm-high{background:#D0EDE5;color:#0A5A40}
-.hm-mid{background:var(--amber-pale);color:#7A5500}
-.hm-low{background:var(--maroon-pale);color:var(--maroon-bright)}
-
-/* ══ TREATMENT TABLE ══════════════════════════════ */
-.t-table{width:100%;border-collapse:collapse}
-.t-table th{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;padding:0 0 10px;border-bottom:1px solid var(--grey-light);text-align:left}
-.t-table th:not(:first-child){text-align:right}
-.t-table td{padding:9px 0;font-size:12px;border-bottom:1px solid #F5F0EC;vertical-align:middle}
-.t-table td:not(:first-child){text-align:right}
-.t-name{font-weight:500;color:var(--maroon-deep)}
-.trend-chip{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600}
-.tc-drop{background:var(--maroon-pale);color:var(--maroon-bright)}
-.tc-ok{background:var(--green-pale);color:var(--green)}
-.tc-warn{background:var(--amber-pale);color:var(--amber)}
-
-/* ══ PKG BARS ═════════════════════════════════════ */
-.pkg-list{display:flex;flex-direction:column;gap:14px}
+/* ── PKG BARS ────────────────────────────── */
+.pkg-list{display:flex;flex-direction:column;gap:13px}
 .pkg-item{display:flex;flex-direction:column;gap:5px}
 .pkg-meta{display:flex;justify-content:space-between;align-items:center}
-.pkg-name{font-size:12px;font-weight:500;color:var(--text-dark)}
+.pkg-name{font-size:12px;font-weight:500;color:var(--text)}
 .pkg-pct{font-size:12px;font-weight:600}
-.pkg-bg{height:8px;background:var(--grey-light);border-radius:4px;overflow:hidden}
-.pkg-fill{height:100%;border-radius:4px}
+.pkg-bg{height:7px;background:var(--cream-dark);border-radius:3px;overflow:hidden}
+.pkg-fill{height:100%;border-radius:3px}
 
-/* ══ CHART CANVAS ════════════════════════════════ */
-.ch-wrap{position:relative;height:200px}
-.ch-wrap.tall{height:240px}
-.ch-wrap.sm{height:160px}
+/* ── CHART WRAP ──────────────────────────── */
+.cw{position:relative;height:200px}
+.cw.tall{height:240px}
+.cw.sm{height:160px}
 
-/* ══ PRACTITIONER DETAIL ═══════════════════════════ */
-.prac-detail-header{
-  display:flex;align-items:center;gap:16px;
-  background:var(--white);border-radius:10px;border:1px solid var(--grey-light);
-  padding:20px 24px;margin-bottom:20px;
-}
-.prac-big-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0}
-.prac-detail-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--maroon-deep)}
-.prac-detail-role{font-size:12px;color:var(--text-muted);margin-top:2px}
-.back-btn{
-  margin-left:auto;padding:7px 16px;font-size:12px;font-weight:500;
-  background:var(--cream);border:1px solid var(--grey-light);border-radius:7px;
-  cursor:pointer;color:var(--text-muted);transition:all .12s;display:flex;align-items:center;gap:6px;
-}
-.back-btn:hover{background:var(--maroon-pale);color:var(--maroon-bright);border-color:var(--maroon-pale)}
+/* ── MEMO ────────────────────────────────── */
+.memo{background:var(--maroon);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;position:relative;overflow:hidden}
+.memo::before{content:'';position:absolute;right:-50px;top:-50px;width:160px;height:160px;border-radius:50%;background:rgba(139,26,26,.2)}
+.memo-eye{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--tan);font-weight:600;margin-bottom:8px}
+.memo-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--cream);margin-bottom:10px;letter-spacing:.01em}
+.memo-body{font-size:13px;color:rgba(245,239,230,.78);line-height:1.75;max-width:760px}
+.memo-action{margin-top:14px;font-size:12px;font-weight:600;color:var(--tan);display:flex;align-items:center;gap:6px}
+.memo-action::before{content:'→';color:var(--crimson-light)}
 
-/* ══ SECTION TITLE ════════════════════════════════ */
-.section-hd{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:12px}
+/* ── PRAC DETAIL ─────────────────────────── */
+.pd-hdr{display:flex;align-items:center;gap:14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--cream-dark);padding:18px 22px;margin-bottom:18px;box-shadow:var(--shadow)}
+.pd-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0}
+.pd-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--maroon)}
+.pd-role{font-size:11px;color:var(--muted);margin-top:2px}
+.back{margin-left:auto;padding:6px 14px;font-size:12px;font-weight:500;background:var(--cream);border:1px solid var(--cream-dark);border-radius:7px;cursor:pointer;color:var(--muted);transition:all .12s;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
+.back:hover{background:var(--red-pale);color:var(--crimson);border-color:var(--red-pale)}
 
-/* ══ FOOTER ═══════════════════════════════════════ */
-.dash-footer{
-  background:var(--maroon-deep);padding:10px 28px;
-  display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
-}
-.footer-l{font-size:10px;color:rgba(255,255,255,.25)}
-.footer-r{font-size:10px;color:var(--teal-light)}
+/* ── ALERTS ──────────────────────────────── */
+.alerts-row{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.alert-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:var(--radius);border:1px solid}
+.alert-item.a-red{background:var(--red-pale);border-color:#F5CACA}
+.alert-item.a-amber{background:var(--amber-pale);border-color:#F5DCAA}
+.alert-item.a-green{background:var(--green-pale);border-color:#A8DFC4}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.alert-dot.red{background:var(--crimson)}
+.alert-dot.amber{background:var(--amber)}
+.alert-dot.green{background:var(--green)}
+.alert-title{font-size:12px;font-weight:600;color:var(--text)}
+.alert-body{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
+.alert-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;margin-left:auto;flex-shrink:0;align-self:flex-start}
+.at-red{background:var(--red-pale);color:var(--crimson)}
+.at-amber{background:var(--amber-pale);color:var(--amber)}
+.at-green{background:var(--green-pale);color:var(--green)}
 
-/* ══ DIVIDER ══════════════════════════════════════ */
-.divider{height:1px;background:var(--grey-light);margin:14px 0}
-.note{font-size:11px;color:var(--text-muted);line-height:1.6;margin-top:14px;padding-top:12px;border-top:1px solid var(--grey-light)}
-em-m{color:var(--maroon-bright);font-style:normal;font-weight:600}
-em-t{color:var(--teal-bright);font-style:normal;font-weight:600}
+/* ── CONVERSION BARS ─────────────────────── */
+.conv-list{display:flex;flex-direction:column;gap:14px}
+.conv-row{display:flex;align-items:center;gap:10px}
+.conv-name{width:88px;font-size:12px;font-weight:500;color:var(--text);flex-shrink:0}
+.conv-bg{flex:1;height:8px;background:var(--cream-dark);border-radius:4px;overflow:hidden}
+.conv-fill{height:100%;border-radius:4px}
+.conv-pct{width:42px;text-align:right;font-size:12px;font-weight:600;flex-shrink:0}
+.conv-badge{font-size:10px;padding:2px 7px;border-radius:4px;width:50px;text-align:center;font-weight:600;flex-shrink:0}
 
-/* ══ SCROLLBAR ════════════════════════════════════ */
-.content-area::-webkit-scrollbar{width:5px}
-.content-area::-webkit-scrollbar-track{background:transparent}
-.content-area::-webkit-scrollbar-thumb{background:var(--grey-light);border-radius:3px}
+/* ── SPLIT DONUT LABELS ──────────────────── */
+.split-legend{display:flex;gap:16px;margin-top:12px;justify-content:center}
+.split-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.split-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── LTV TABLE ───────────────────────────── */
+.ltv-list{display:flex;flex-direction:column;gap:10px}
+.ltv-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--cream);border-radius:8px;border:1px solid var(--cream-dark)}
+.ltv-label{font-size:12px;font-weight:500;color:var(--text)}
+.ltv-val{font-size:14px;font-weight:600;font-family:'Cormorant Garamond',serif;color:var(--maroon)}
+.ltv-sub{font-size:10px;color:var(--muted);margin-top:1px}
+
+/* ── FOOTER ──────────────────────────────── */
+.foot{background:var(--maroon);padding:9px 26px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.foot-l{font-size:10px;color:rgba(255,255,255,.2)}
+.foot-r{font-size:10px;color:var(--tan)}
+
+/* ── SECTION LABEL ───────────────────────── */
+.sec{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px;padding-top:11px;border-top:1px solid var(--cream-dark)}
+.hl-red{color:var(--crimson);font-weight:600}
+.hl-grn{color:var(--green);font-weight:600}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ SIDEBAR ═══════════════ -->
-<aside class="sidebar">
-  <div class="sidebar-logo" onclick="showPage('overview')">
-    <div class="logo-mark">CDI</div>
-  </div>
-  <nav class="sidebar-nav">
-    <button class="nav-btn active" id="nb-overview" onclick="showPage('overview')">
+<!-- ════════════════════════════════════════════════════════════════
+     CLIENT DATA — EDIT THIS SECTION ONLY
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+// ─── 1. CLINIC INFO ──────────────────────────────────────────────────
+const CLIENT = {
+  name:        "Apex Aesthetics",       // Clinic name shown in header
+  period:      "April 2025",            // Current report period
+  lastUpdated: "28 Apr 2025",           // When you updated the data
+}
+
+// ─── 2. PERIOD DATA ───────────────────────────────────────────────────
+// Each period has: revenue, bookings, revPerHour, retention
+// Also: trend (last 6 periods for the line chart)
+// And: practitioners, treatments, packages
+
+const DATA = {
+
+  daily: {
+    revenue: 1420, bookings: 8, revPerHour: 94, retention: 61,
+    label: "Today · 29 Apr 2025",
+    trend: { labels:["Mon","Tue","Wed","Thu","Fri","Today"], vals:[980,1340,820,1100,1280,1420] },
+    practitioners: {
+      "Dr Patel":   { rev:420, hrs:3, bookings:3, rph:140, spec:"Injectables", type:"Lead practitioner", days:[2,3,0,1,3,0,0], mix:{Botox:350,Profhilo:320,"Lip filler":180} },
+      "Dr Okafor":  { rev:350, hrs:3, bookings:2, rph:117, spec:"Injectables", type:"Senior",            days:[0,2,1,0,2,0,0], mix:{Botox:350,"Lip filler 1ml":420,Booster:250} },
+      "Nurse Lena": { rev:400, hrs:4, bookings:2, rph:100, spec:"Skin treatments", type:"Senior nurse",  days:[1,2,1,2,1,0,0], mix:{Microneedling:220,Peel:150,Booster:250} },
+      "Dr Henshaw": { rev:250, hrs:4, bookings:3, rph:63,  spec:"Injectables", type:"Associate",         days:[0,3,0,1,2,0,0], mix:{Consultation:50,"Lip filler 0.5ml":180,"Lip filler 1ml":420} },
+    },
+    treatments: [
+      { name:"Botox 3 area",      bookings:4, rev:1400, trend:"ok" },
+      { name:"Lip filler 1ml",    bookings:2, rev:840,  trend:"ok" },
+      { name:"Profhilo",          bookings:1, rev:320,  trend:"drop" },
+      { name:"Lip filler 0.5ml",  bookings:3, rev:540,  trend:"warn" },
+      { name:"Consultation",      bookings:3, rev:150,  trend:"warn" },
+    ],
+    packages: [
+      { name:"Skin Reset ×6",      pct:88, color:"#2B7574" },
+      { name:"Anti-ageing ×4",     pct:74, color:"#2B7574" },
+      { name:"Laser ×8",           pct:47, color:"#B87F00" },
+      { name:"Bespoke Bronze ×4",  pct:31, color:"#8B1A1A" },
+    ],
+  },
+
+  weekly: {
+    revenue: 7840, bookings: 38, revPerHour: 91, retention: 59,
+    label: "Week of 28 Apr – 4 May 2025",
+    trend: { labels:["W47","W48","W49","W50","W51","W52"], vals:[6200,7100,5900,7400,6800,7840] },
+    practitioners: {
+      "Dr Patel":   { rev:2100, hrs:15, bookings:14, rph:140, spec:"Injectables", type:"Lead practitioner", days:[3,4,2,3,4,0,0], mix:{Botox:700,Profhilo:640,"Lip filler":420} },
+      "Dr Okafor":  { rev:1820, hrs:14, bookings:10, rph:130, spec:"Injectables", type:"Senior",            days:[2,3,2,2,3,0,0], mix:{Botox:700,"Lip filler 1ml":840,Booster:500} },
+      "Nurse Lena": { rev:1540, hrs:18, bookings:9,  rph:86,  spec:"Skin treatments", type:"Senior nurse",  days:[2,3,2,3,2,0,0], mix:{Microneedling:440,Peel:300,Booster:500} },
+      "Dr Henshaw": { rev:1380, hrs:20, bookings:14, rph:69,  spec:"Injectables", type:"Associate",         days:[2,4,2,3,4,0,0], mix:{Consultation:250,"Lip filler 0.5ml":720,"Lip filler 1ml":420} },
+    },
+    treatments: [
+      { name:"Botox 3 area",      bookings:14, rev:4900, trend:"ok" },
+      { name:"Lip filler 1ml",    bookings:7,  rev:2940, trend:"ok" },
+      { name:"Profhilo",          bookings:4,  rev:1280, trend:"drop" },
+      { name:"Lip filler 0.5ml",  bookings:9,  rev:1620, trend:"warn" },
+      { name:"Consultation",      bookings:8,  rev:400,  trend:"warn" },
+    ],
+    packages: [
+      { name:"Skin Reset ×6",      pct:88, color:"#2B7574" },
+      { name:"Anti-ageing ×4",     pct:74, color:"#2B7574" },
+      { name:"Laser ×8",           pct:47, color:"#B87F00" },
+      { name:"Bespoke Bronze ×4",  pct:31, color:"#8B1A1A" },
+    ],
+  },
+
+  monthly: {
+    revenue: 41280, bookings: 116, revPerHour: 94, retention: 61,
+    label: "April 2025",
+    trend: { labels:["Nov","Dec","Jan","Feb","Mar","Apr"], vals:[34200,38100,31900,36800,38800,41280] },
+    practitioners: {
+      "Dr Patel":   { rev:9800,  hrs:71,  bookings:28, rph:138, spec:"Injectables", type:"Lead practitioner", days:[8,10,7,8,10,0,0], mix:{Botox:3850,Profhilo:2560,"Lip filler":1890} },
+      "Dr Okafor":  { rev:7560,  hrs:73,  bookings:22, rph:104, spec:"Injectables", type:"Senior",            days:[7,8,6,6,8,0,0],   mix:{Botox:2800,"Lip filler 1ml":3360,Booster:1750} },
+      "Nurse Lena": { rev:6480,  hrs:91,  bookings:24, rph:71,  spec:"Skin treatments", type:"Senior nurse",  days:[6,8,6,8,7,0,0],   mix:{Microneedling:1540,Peel:1200,Booster:1500} },
+      "Dr Henshaw": { rev:5640,  hrs:113, bookings:42, rph:50,  spec:"Injectables", type:"Associate",         days:[8,12,6,8,12,0,0],  mix:{Consultation:900,"Lip filler 0.5ml":3240,"Lip filler 1ml":1680} },
+    },
+    treatments: [
+      { name:"Botox 3 area",      bookings:28, rev:9800, trend:"ok"   },
+      { name:"Lip filler 1ml",    bookings:14, rev:5880, trend:"ok"   },
+      { name:"Profhilo",          bookings:9,  rev:2880, trend:"drop" },
+      { name:"Lip filler 0.5ml",  bookings:18, rev:3240, trend:"warn" },
+      { name:"Skin booster",      bookings:6,  rev:1500, trend:"ok"   },
+      { name:"Microneedling",     bookings:7,  rev:1540, trend:"drop" },
+      { name:"Chemical peel",     bookings:7,  rev:1050, trend:"warn" },
+      { name:"Consultation",      bookings:18, rev:900,  trend:"warn" },
+    ],
+    packages: [
+      { name:"Skin Reset ×6",      pct:88, color:"#2B7574" },
+      { name:"Anti-ageing ×4",     pct:74, color:"#2B7574" },
+      { name:"Laser ×8",           pct:47, color:"#B87F00" },
+      { name:"Bespoke Bronze ×4",  pct:31, color:"#8B1A1A" },
+    ],
+  },
+}
+
+// ─── 3. HEATMAP DATA ──────────────────────────────────────────────────
+// Format: [Mon, Tue, Wed, Thu, Fri] for each time band
+// Values are % utilisation (0-100)
+const HEATMAP = {
+  "9–12":  [94, 91, 78, 88, 96],
+  "12–3":  [72, 85, 54, 51, 74],
+  "3–6":   [80, 76, 48, 44, 89],
+}
+
+// ─── 4. INTELLIGENCE MEMO ─────────────────────────────────────────────
+// Write this section fresh every month. Be specific. Use real numbers.
+const MEMO = {
+  eyebrow: "CDI · Monthly intelligence memo",
+  title:   "Priority finding — April 2025",
+  body:    `Dr Henshaw has <strong style="color:var(--cream)">100% diary utilisation</strong> every week — fully booked — but generates <strong style="color:var(--cream)">£50/hr</strong> against a clinic average of <strong style="color:var(--cream)">£94/hr</strong>. The gap is not attendance; it is treatment mix. Her appointments are weighted toward consultations (£50 flat) and 0.5ml lip filler. Shifting 30% of her weekly slots toward higher-value treatments already on your menu recovers an estimated <strong style="color:var(--tan)">£3,200/month</strong> — without adding a single new patient.`,
+  action:  "Review Dr Henshaw's booking category defaults and add a Botox 3-area slot to her Tuesday and Friday mornings.",
+}
+
+// ─── 5. ALERTS ────────────────────────────────────────────────────────
+// severity: "red" | "amber" | "green"
+// Update these each month based on what the data shows.
+const ALERTS = [
+  { severity:"red",   title:"Dr Henshaw revenue/hr down 18% month-on-month", body:"Dropped from £61/hr to £50/hr. Treatment mix has shifted further toward consultations. Immediate action required on booking category defaults.", tag:"Action needed" },
+  { severity:"amber", title:"Profhilo bookings down 68% vs 6-month average",  body:"Was consistently in the top 3 treatments. Now showing significant decline. Could be seasonal, pricing, or competition. Investigate before next month.", tag:"Monitor" },
+  { severity:"amber", title:"Wednesday and Thursday afternoons at 48-54% utilisation", body:"Consistent underperformance for 3 consecutive months. Promotional push or schedule restructure recommended.", tag:"Monitor" },
+  { severity:"green", title:"Dr Patel revenue/hr up 12% vs last month",       body:"Treatment mix has improved toward higher-margin injectables. No action required.", tag:"On track" },
+]
+
+// ─── 6. CONVERSION DATA ───────────────────────────────────────────────
+// Consultation-to-booking conversion rate per practitioner
+// convRate: percentage of consultations that converted to a paid booking
+// newVsReturn: [new client %, returning client %] — must sum to 100
+// lifetimeValue: average total revenue per unique client over 12 months
+const CONVERSION = {
+  "Dr Patel":   { convRate:82, newVsReturn:[28,72], ltv:1240 },
+  "Dr Okafor":  { convRate:74, newVsReturn:[35,65], ltv:980  },
+  "Nurse Lena": { convRate:68, newVsReturn:[41,59], ltv:720  },
+  "Dr Henshaw": { convRate:51, newVsReturn:[58,42], ltv:490  },
+}
+
+// ─── 7. PRACTITIONER COLOURS ──────────────────────────────────────────
+// One entry per practitioner. bg and txt are hex colours for their avatar.
+const PRAC_COLORS = {
+  "Dr Patel":   { bg:"#E0EFEE", txt:"#0E4040", init:"DP" },
+  "Dr Okafor":  { bg:"#FAE8E8", txt:"#6B1515", init:"DO" },
+  "Nurse Lena": { bg:"#FEF3D0", txt:"#7A5500", init:"NL" },
+  "Dr Henshaw": { bg:"#F0E8F5", txt:"#4A1A6B", init:"DH" },
+}
+
+// ─── 8. PRACTITIONER MEMOS ────────────────────────────────────────────
+// Written insight shown on each practitioner's detail page.
+const PRAC_MEMOS = {
+  "Dr Patel":   "Dr Patel is the clinic's strongest performer at £138/hr. Her treatment mix skews heavily toward high-margin injectables. Protect her diary — avoid filling her slots with lower-value consultations. Consider increasing her Thursday presence, currently the clinic's weakest day.",
+  "Dr Okafor":  "Dr Okafor performs well at £104/hr, above clinic average. The main opportunity is increasing 1ml filler bookings over 0.5ml — the revenue-per-hour difference is significant. No immediate flags.",
+  "Nurse Lena": "Nurse Lena is below clinic average at £71/hr. Her skin treatment focus means shorter revenue windows, but the opportunity is in upselling course packages where she is the primary practitioner. Watch package completion — currently 88%, which is healthy.",
+  "Dr Henshaw": "Dr Henshaw is the priority flag. 100% diary utilisation but £50/hr — significantly below the £90/hr target. Action required: adjust booking defaults to shift 30% of slots toward Botox 3-area. Estimated recovery: £3,200/month.",
+}
+// ════════════════════════════════════════════════════════════════
+// END OF CLIENT DATA — do not edit below this line
+// ════════════════════════════════════════════════════════════════
+</script>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-logo" onclick="nav('overview')"><div class="sb-logomark">CDI</div></div>
+  <nav class="sb-nav">
+    <button class="nb on" id="nb-overview" onclick="nav('overview')">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      <span class="nav-tooltip">Overview</span>
+      <span class="nb-tip">Overview</span>
     </button>
-    <button class="nav-btn" id="nb-practitioners" onclick="showPage('practitioners')">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span class="nav-tooltip">Practitioners</span>
+    <button class="nb" id="nb-practitioners" onclick="nav('practitioners')">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="nb-tip">Practitioners</span>
     </button>
-    <button class="nav-btn" id="nb-treatments" onclick="showPage('treatments')">
+    <button class="nb" id="nb-treatments" onclick="nav('treatments')">
       <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span class="nav-tooltip">Treatments</span>
+      <span class="nb-tip">Treatments</span>
     </button>
-    <button class="nav-btn" id="nb-packages" onclick="showPage('packages')">
+    <button class="nb" id="nb-packages" onclick="nav('packages')">
       <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      <span class="nav-tooltip">Packages</span>
+      <span class="nb-tip">Packages</span>
+    </button>
+    <button class="nb" id="nb-insights" onclick="nav('insights')">
+      <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6" stroke-linecap="round"/></svg>
+      <span class="nb-tip">Insights</span>
     </button>
   </nav>
-  <div class="sidebar-bottom"><div class="demo-dot" title="Demo mode"></div></div>
+  <div class="sb-foot">
+    <div class="sb-dot"></div>
+    <div class="sb-demo" id="sb-demo-label">Live</div>
+  </div>
 </aside>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
-<div class="main">
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="breadcrumb">
-      <span class="breadcrumb-main" id="bc-main">Overview</span>
-      <span class="breadcrumb-sep" id="bc-sep" style="display:none">›</span>
-      <span class="breadcrumb-sub" id="bc-sub"></span>
+<!-- MAIN -->
+<main class="main">
+  <div class="top">
+    <div class="top-l">
+      <span class="top-clinic" id="top-clinic">—</span>
+      <span class="top-sep">›</span>
+      <span class="top-page" id="top-page">Overview</span>
     </div>
-    <div class="topbar-right">
-      <div class="period-tabs">
-        <button class="ptab" onclick="setPeriod('daily')">Daily</button>
-        <button class="ptab" onclick="setPeriod('weekly')">Weekly</button>
-        <button class="ptab active" onclick="setPeriod('monthly')">Monthly</button>
+    <div class="top-r">
+      <div class="ptabs">
+        <button class="pt" onclick="setPeriod('daily')">Daily</button>
+        <button class="pt" onclick="setPeriod('weekly')">Weekly</button>
+        <button class="pt on" onclick="setPeriod('monthly')">Monthly</button>
       </div>
-      <span class="clinic-pill">Apex Aesthetics</span>
-      <span class="cdi-tag">CDI Demo</span>
+      <span class="top-tag" id="top-tag">CDI</span>
+      <span class="top-updated" id="top-updated">—</span>
     </div>
   </div>
 
-  <!-- CONTENT -->
-  <div class="content-area">
+  <div class="scroll">
 
-    <!-- ══ PAGE: OVERVIEW ══════════════════════════ -->
-    <div class="page active" id="page-overview">
-
-      <!-- KPI CARDS -->
-      <div class="kpi-grid" id="kpi-grid"></div>
-
-      <!-- MEMO -->
-      <div class="memo">
-        <div class="memo-eye">CDI · Monthly intelligence memo</div>
-        <div class="memo-title">Priority finding — April 2025</div>
-        <div class="memo-body">
-          Dr Henshaw has <strong style="color:var(--cream)">100% diary utilisation</strong> every week — fully booked — but generates <strong style="color:var(--cream)">£50/hr</strong> against a clinic average of <strong style="color:var(--cream)">£94/hr</strong>. The gap is not attendance; it is treatment mix. Shifting 30% of her weekly slots toward higher-value treatments already on the clinic menu would recover an estimated <strong style="color:var(--teal-light)">£3,200/month</strong> without acquiring a single new patient.
-        </div>
-        <div class="memo-action">Recommended: Review Dr Henshaw's booking category defaults — add Botox 3-area to her Tuesday and Friday mornings.</div>
-      </div>
-
-      <!-- CHARTS ROW 1 -->
-      <div class="grid-2">
+    <!-- OVERVIEW -->
+    <div class="pg on" id="pg-overview">
+      <div class="kpi-row" id="ov-kpis"></div>
+      <div class="alerts-row" id="ov-alerts"></div>
+      <div class="memo" id="ov-memo"></div>
+      <div class="g2">
         <div class="card">
-          <div class="card-hd">
-            <div><div class="card-title">Revenue per hour · by practitioner</div><div class="card-sub">Click any row to view full profile</div></div>
-            <span class="tag tag-flag">Key metric</span>
-          </div>
-          <div class="prac-list" id="ov-prac-list"></div>
-          <div class="note">Dr Henshaw has a full diary. Rev/hr gap vs Dr Patel = <em-m>£88/hr</em-m> · est. <em-m>£3,200/month</em-m> recoverable.</div>
+          <div class="ch"><div><div class="ct">Revenue per hour by practitioner</div><div class="cs">Click any row for their full profile</div></div><span class="badge b-flag">Key metric</span></div>
+          <div class="prac-list" id="ov-pracs"></div>
+          <div class="note" id="ov-prac-note"></div>
         </div>
         <div class="card">
-          <div class="card-hd">
-            <div><div class="card-title">Slot utilisation · by day &amp; time</div><div class="card-sub">% of available slots booked</div></div>
-            <span class="tag tag-flag">2 dead zones</span>
-          </div>
-          <div class="hm-wrap">
-            <div></div>
-            <div class="hm-hdr">Mon</div><div class="hm-hdr">Tue</div><div class="hm-hdr">Wed</div><div class="hm-hdr">Thu</div><div class="hm-hdr">Fri</div>
-            <div class="hm-lbl">9–12</div>
-            <div class="hm-cell hm-high">94%</div><div class="hm-cell hm-high">91%</div><div class="hm-cell hm-mid">78%</div><div class="hm-cell hm-high">88%</div><div class="hm-cell hm-high">96%</div>
-            <div class="hm-lbl">12–3</div>
-            <div class="hm-cell hm-mid">72%</div><div class="hm-cell hm-high">85%</div><div class="hm-cell hm-low">54%</div><div class="hm-cell hm-low">51%</div><div class="hm-cell hm-mid">74%</div>
-            <div class="hm-lbl">3–6</div>
-            <div class="hm-cell hm-mid">80%</div><div class="hm-cell hm-mid">76%</div><div class="hm-cell hm-low">48%</div><div class="hm-cell hm-low">44%</div><div class="hm-cell hm-high">89%</div>
-          </div>
-          <div class="note">Wed–Thu afternoons are chronically underbooked. <em-m>12 hrs/week</em-m> of dead chair time at current rates.</div>
+          <div class="ch"><div><div class="ct">Slot utilisation</div><div class="cs">% of available slots booked</div></div><span class="badge b-flag" id="hm-badge">2 dead zones</span></div>
+          <div class="hm" id="ov-heatmap"></div>
+          <div class="note">Wed–Thu afternoons are chronically underbooked. <span class="hl-red">12 hrs/week</span> of dead chair time.</div>
         </div>
       </div>
-
-      <!-- CHARTS ROW 2 -->
-      <div class="grid-2">
+      <div class="g2">
         <div class="card">
-          <div class="card-hd">
-            <div><div class="card-title">Revenue trend</div><div class="card-sub" id="trend-sub">Monthly · last 6 months</div></div>
-            <span class="tag tag-info">Trend</span>
-          </div>
-          <div class="ch-wrap"><canvas id="trend-chart"></canvas></div>
+          <div class="ch"><div><div class="ct">Revenue trend</div><div class="cs" id="ov-trend-sub">—</div></div><span class="badge b-info">Trend</span></div>
+          <div class="cw"><canvas id="ov-trend-chart"></canvas></div>
         </div>
         <div class="card">
-          <div class="card-hd">
-            <div><div class="card-title">Package sell-through</div><div class="card-sub">Sessions used vs sessions sold</div></div>
-            <span class="tag tag-flag">1 flagged</span>
-          </div>
-          <div class="pkg-list" id="pkg-list"></div>
-          <div class="note">Bespoke Bronze: <em-m>69% abandoned</em-m>. Pre-paid revenue sitting idle — and a retention risk.</div>
+          <div class="ch"><div><div class="ct">Package sell-through</div><div class="cs">Sessions used vs sessions sold</div></div><span class="badge b-flag">1 flagged</span></div>
+          <div class="pkg-list" id="ov-pkgs"></div>
+          <div class="note">Bespoke Bronze: <span class="hl-red">69% abandoned</span>. Pre-paid revenue sitting idle.</div>
         </div>
-      </div>
-
-    </div><!-- /overview -->
-
-    <!-- ══ PAGE: PRACTITIONERS LIST ════════════════ -->
-    <div class="page" id="page-practitioners">
-      <div class="section-hd">All practitioners · click to view individual report</div>
-      <div class="grid-2" id="prac-cards"></div>
-      <div class="card" style="margin-top:0">
-        <div class="card-hd"><div><div class="card-title">Comparative revenue per hour</div><div class="card-sub">All practitioners · <span id="prac-period-label">this month</span></div></div></div>
-        <div class="ch-wrap tall"><canvas id="prac-compare-chart"></canvas></div>
       </div>
     </div>
 
-    <!-- ══ PAGE: PRACTITIONER DETAIL ═══════════════ -->
-    <div class="page" id="page-prac-detail">
-      <div class="prac-detail-header" id="prac-detail-hd">
-        <div class="prac-big-avatar" id="pd-avatar"></div>
-        <div>
-          <div class="prac-detail-name" id="pd-name"></div>
-          <div class="prac-detail-role" id="pd-role"></div>
-        </div>
-        <button class="back-btn" onclick="showPage('practitioners')">← Back to practitioners</button>
-      </div>
-      <div class="kpi-grid" id="pd-kpi-grid"></div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-hd"><div><div class="card-title">Revenue trend</div><div class="card-sub" id="pd-trend-sub">This period</div></div><span class="tag tag-info">Trend</span></div>
-          <div class="ch-wrap"><canvas id="pd-trend-chart"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-hd"><div><div class="card-title">Treatment mix</div><div class="card-sub">This period by revenue</div></div><span class="tag tag-info">Mix</span></div>
-          <div class="ch-wrap"><canvas id="pd-mix-chart"></canvas></div>
-        </div>
-      </div>
+    <!-- PRACTITIONERS LIST -->
+    <div class="pg" id="pg-practitioners">
+      <div class="sec">All practitioners — click any card to view their individual report</div>
+      <div class="g2" id="prac-cards"></div>
       <div class="card">
-        <div class="card-hd"><div><div class="card-title">Bookings by day of week</div><div class="card-sub">Utilisation pattern</div></div></div>
-        <div class="ch-wrap sm"><canvas id="pd-days-chart"></canvas></div>
-      </div>
-      <div class="memo" style="margin-top:16px" id="pd-memo"></div>
-    </div>
-
-    <!-- ══ PAGE: TREATMENTS ════════════════════════ -->
-    <div class="page" id="page-treatments">
-      <div class="grid-2" style="margin-bottom:16px">
-        <div class="card">
-          <div class="card-hd"><div><div class="card-title">Revenue by treatment</div><div class="card-sub" id="treat-sub">This period</div></div><span class="tag tag-flag">2 cold spots</span></div>
-          <div class="ch-wrap tall"><canvas id="treat-chart"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-hd"><div><div class="card-title">Treatment mix · % of revenue</div><div class="card-sub">This period</div></div><span class="tag tag-info">Mix</span></div>
-          <div class="ch-wrap tall"><canvas id="treat-mix-chart"></canvas></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-hd"><div><div class="card-title">Full treatment breakdown</div><div class="card-sub">Revenue, bookings, and trend</div></div></div>
-        <table class="t-table" id="treat-table"></table>
+        <div class="ch"><div><div class="ct">Revenue per hour — all practitioners</div><div class="cs" id="prac-period-lbl">—</div></div><span class="badge b-info">Comparison</span></div>
+        <div class="cw tall"><canvas id="prac-compare-chart"></canvas></div>
       </div>
     </div>
 
-    <!-- ══ PAGE: PACKAGES ═════════════════════════ -->
-    <div class="page" id="page-packages">
-      <div class="grid-2" style="margin-bottom:16px">
+    <!-- PRACTITIONER DETAIL -->
+    <div class="pg" id="pg-prac-detail">
+      <div class="pd-hdr">
+        <div class="pd-av" id="pd-av"></div>
+        <div><div class="pd-name" id="pd-name">—</div><div class="pd-role" id="pd-role">—</div></div>
+        <button class="back" onclick="nav('practitioners')">← Back</button>
+      </div>
+      <div class="kpi-row" id="pd-kpis"></div>
+      <div class="g2">
+        <div class="card"><div class="ch"><div><div class="ct">Revenue trend</div><div class="cs" id="pd-trend-sub">—</div></div><span class="badge b-info">Trend</span></div><div class="cw"><canvas id="pd-trend-chart"></canvas></div></div>
+        <div class="card"><div class="ch"><div><div class="ct">Treatment mix</div><div class="cs">This period by revenue</div></div><span class="badge b-info">Mix</span></div><div class="cw"><canvas id="pd-mix-chart"></canvas></div></div>
+      </div>
+      <div class="card" style="margin-bottom:14px"><div class="ch"><div><div class="ct">Bookings by day of week</div></div></div><div class="cw sm"><canvas id="pd-days-chart"></canvas></div></div>
+      <div class="memo" id="pd-memo"></div>
+    </div>
+
+    <!-- TREATMENTS -->
+    <div class="pg" id="pg-treatments">
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card"><div class="ch"><div><div class="ct">Revenue by treatment</div><div class="cs" id="treat-sub">—</div></div><span class="badge b-flag">Cold spots flagged</span></div><div class="cw tall"><canvas id="treat-chart"></canvas></div></div>
+        <div class="card"><div class="ch"><div><div class="ct">Treatment mix</div><div class="cs">% of total revenue</div></div><span class="badge b-info">Mix</span></div><div class="cw tall"><canvas id="treat-mix-chart"></canvas></div></div>
+      </div>
+      <div class="card"><div class="ch"><div><div class="ct">Full treatment breakdown</div></div></div><table class="tt" id="treat-table"></table></div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="pg" id="pg-packages">
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card"><div class="ch"><div><div class="ct">Sell-through rate</div><div class="cs">Sessions used vs sessions sold</div></div><span class="badge b-flag">1 flagged</span></div><div class="cw"><canvas id="pkg-chart"></canvas></div></div>
+        <div class="card"><div class="ch"><div><div class="ct">Sold value vs delivered value</div></div></div><div class="cw"><canvas id="pkg-rev-chart"></canvas></div></div>
+      </div>
+      <div class="card"><div class="ch"><div><div class="ct">Package detail</div></div></div><table class="tt" id="pkg-table"></table></div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="pg" id="pg-insights">
+      <div class="sec">Smart insights — performance metrics beyond your booking software</div>
+
+      <!-- ALERTS -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div><div class="ct">Monthly alerts</div><div class="cs">Flagged changes that need your attention</div></div><span class="badge b-flag" id="ins-alert-count">—</span></div>
+        <div class="alerts-row" id="ins-alerts"></div>
+      </div>
+
+      <!-- CONVERSION + NEW VS RETURN -->
+      <div class="g2" style="margin-bottom:14px">
         <div class="card">
-          <div class="card-hd"><div><div class="card-title">Sell-through rate by package</div><div class="card-sub">Sessions used / sessions sold</div></div><span class="tag tag-flag">1 flagged</span></div>
-          <div class="ch-wrap"><canvas id="pkg-chart"></canvas></div>
+          <div class="ch"><div><div class="ct">Consultation-to-booking conversion</div><div class="cs">% of consultations that become paid bookings</div></div><span class="badge b-flag">1 flagged</span></div>
+          <div class="conv-list" id="ins-conv"></div>
+          <div class="note" style="margin-top:14px">Dr Henshaw converts <span class="hl-red">51%</span> of consultations. Dr Patel converts <span class="hl-grn">82%</span>. Scheduling your lowest converter for the most consultations costs you money twice.</div>
         </div>
         <div class="card">
-          <div class="card-hd"><div><div class="card-title">Package revenue summary</div><div class="card-sub">Sold value vs delivered value</div></div></div>
-          <div class="ch-wrap"><canvas id="pkg-rev-chart"></canvas></div>
+          <div class="ch"><div><div class="ct">New vs returning clients</div><div class="cs">By practitioner — this period</div></div><span class="badge b-info">Retention</span></div>
+          <div class="cw"><canvas id="ins-split-chart"></canvas></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-hd"><div><div class="card-title">Package detail</div><div class="card-sub">Full breakdown including abandoned sessions</div></div></div>
-        <table class="t-table" id="pkg-table"></table>
+
+      <!-- LIFETIME VALUE -->
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div><div class="ct">Average client lifetime value</div><div class="cs">Total revenue per unique client over 12 months</div></div><span class="badge b-info">LTV</span></div>
+          <div class="ltv-list" id="ins-ltv"></div>
+          <div class="note" style="margin-top:12px">The LTV gap between Dr Patel and Dr Henshaw's client base is <span class="hl-red">£750 per client</span>. Over 12 months that compounds significantly.</div>
+        </div>
+        <div class="card">
+          <div class="ch"><div><div class="ct">Conversion rate vs revenue per hour</div><div class="cs">The two metrics that determine real practitioner value</div></div><span class="badge b-info">Correlation</span></div>
+          <div class="cw"><canvas id="ins-scatter-chart"></canvas></div>
+        </div>
       </div>
     </div>
 
-  </div><!-- /content-area -->
+  </div><!-- /scroll -->
 
-  <div class="dash-footer">
-    <div class="footer-l">clinicaldataintelligence.uk · All data modelled — fictional clinic, no real patient records</div>
-    <div class="footer-r">Clinical Data Intelligence © 2025</div>
+  <div class="foot">
+    <div class="foot-l" id="foot-disclaimer">clinicaldataintelligence.uk · Confidential — for authorised recipient only</div>
+    <div class="foot-r">Clinical Data Intelligence © 2025</div>
   </div>
-</div>
+</main>
 
 <script>
-// ═══════════════ DATA ═══════════════════════════════
-const DATA = {
-  daily:{
-    label:'Today · 29 Apr 2025',
-    revenue:1420, bookings:8, revPerHour:94, retention:61,
-    trend:{labels:['Mon','Tue','Wed','Thu','Fri','Today'],vals:[980,1340,820,1100,1280,1420]},
-    practitioners:{
-      'Dr Patel':    {rev:420,hrs:3,bookings:3,rph:140,specialty:'Injectables',type:'Lead Practitioner',days:[2,3,0,1,3,0,0],mix:{Botox:350,Profhilo:320,Filler:180}},
-      'Dr Okafor':   {rev:350,hrs:3,bookings:2,rph:117,specialty:'Injectables',type:'Senior',days:[0,2,1,0,2,0,0],mix:{Botox:350,Filler:420,Booster:250}},
-      'Nurse Lena':  {rev:400,hrs:4,bookings:2,rph:100,specialty:'Skin Treatments',type:'Senior Nurse',days:[1,2,1,2,1,0,0],mix:{Microneedling:220,Peel:150,Booster:250}},
-      'Dr Henshaw':  {rev:250,hrs:4,bookings:3,rph:63,specialty:'Injectables',type:'Associate',days:[0,3,0,1,2,0,0],mix:{Consultation:50,Filler_05:180,Filler_1:420}},
-    },
-    treatments:[
-      {name:'Botox 3 Area',bookings:4,rev:1400,trend:'ok'},
-      {name:'Lip Filler 1ml',bookings:2,rev:840,trend:'ok'},
-      {name:'Profhilo',bookings:1,rev:320,trend:'drop'},
-      {name:'Lip Filler 0.5ml',bookings:3,rev:540,trend:'warn'},
-      {name:'Microneedling',bookings:1,rev:220,trend:'drop'},
-      {name:'Consultation',bookings:3,rev:150,trend:'warn'},
-    ],
-    packages:[
-      {name:'Skin Reset ×6',pct:88,color:'#2B7574'},
-      {name:'Anti-ageing ×4',pct:74,color:'#2B7574'},
-      {name:'Laser ×8',pct:47,color:'#B87F00'},
-      {name:'Bespoke Bronze ×4',pct:31,color:'#8B1A1A'},
-    ],
-  },
-  weekly:{
-    label:'Week of 28 Apr – 4 May 2025',
-    revenue:7840, bookings:38, revPerHour:91, retention:59,
-    trend:{labels:['W47','W48','W49','W50','W51','W52'],vals:[6200,7100,5900,7400,6800,7840]},
-    practitioners:{
-      'Dr Patel':    {rev:2100,hrs:15,bookings:14,rph:140,specialty:'Injectables',type:'Lead Practitioner',days:[3,4,2,3,4,0,0],mix:{Botox:700,Profhilo:640,Filler:420}},
-      'Dr Okafor':   {rev:1820,hrs:14,bookings:10,rph:130,specialty:'Injectables',type:'Senior',days:[2,3,2,2,3,0,0],mix:{Botox:700,Filler:840,Booster:500}},
-      'Nurse Lena':  {rev:1540,hrs:18,bookings:9,rph:86,specialty:'Skin Treatments',type:'Senior Nurse',days:[2,3,2,3,2,0,0],mix:{Microneedling:440,Peel:300,Booster:500}},
-      'Dr Henshaw':  {rev:1380,hrs:20,bookings:14,rph:69,specialty:'Injectables',type:'Associate',days:[2,4,2,3,4,0,0],mix:{Consultation:250,Filler_05:720,Filler_1:420}},
-    },
-    treatments:[
-      {name:'Botox 3 Area',bookings:14,rev:4900,trend:'ok'},
-      {name:'Lip Filler 1ml',bookings:7,rev:2940,trend:'ok'},
-      {name:'Profhilo',bookings:4,rev:1280,trend:'drop'},
-      {name:'Lip Filler 0.5ml',bookings:9,rev:1620,trend:'warn'},
-      {name:'Microneedling',bookings:3,rev:660,trend:'drop'},
-      {name:'Consultation',bookings:8,rev:400,trend:'warn'},
-    ],
-    packages:[
-      {name:'Skin Reset ×6',pct:88,color:'#2B7574'},
-      {name:'Anti-ageing ×4',pct:74,color:'#2B7574'},
-      {name:'Laser ×8',pct:47,color:'#B87F00'},
-      {name:'Bespoke Bronze ×4',pct:31,color:'#8B1A1A'},
-    ],
-  },
-  monthly:{
-    label:'April 2025',
-    revenue:41280, bookings:116, revPerHour:94, retention:61,
-    trend:{labels:['Nov','Dec','Jan','Feb','Mar','Apr'],vals:[34200,38100,31900,36800,38800,41280]},
-    practitioners:{
-      'Dr Patel':    {rev:9800,hrs:71,bookings:28,rph:138,specialty:'Injectables',type:'Lead Practitioner',days:[8,10,7,8,10,0,0],mix:{Botox:3850,Profhilo:2560,Filler:1890}},
-      'Dr Okafor':   {rev:7560,hrs:73,bookings:22,rph:104,specialty:'Injectables',type:'Senior',days:[7,8,6,6,8,0,0],mix:{Botox:2800,Filler:3360,Booster:1750}},
-      'Nurse Lena':  {rev:6480,hrs:91,bookings:24,rph:71,specialty:'Skin Treatments',type:'Senior Nurse',days:[6,8,6,8,7,0,0],mix:{Microneedling:1540,Peel:1200,Booster:1500}},
-      'Dr Henshaw':  {rev:5640,hrs:113,bookings:42,rph:50,specialty:'Injectables',type:'Associate',days:[8,12,6,8,12,0,0],mix:{Consultation:900,Filler_05:3240,Filler_1:1680}},
-    },
-    treatments:[
-      {name:'Botox 3 Area',bookings:28,rev:9800,trend:'ok'},
-      {name:'Lip Filler 1ml',bookings:14,rev:5880,trend:'ok'},
-      {name:'Profhilo',bookings:9,rev:2880,trend:'drop'},
-      {name:'Lip Filler 0.5ml',bookings:18,rev:3240,trend:'warn'},
-      {name:'Microneedling',bookings:7,rev:1540,trend:'drop'},
-      {name:'Skin Booster',bookings:6,rev:1500,trend:'ok'},
-      {name:'Chemical Peel',bookings:7,rev:1050,trend:'warn'},
-      {name:'Consultation',bookings:18,rev:900,trend:'warn'},
-    ],
-    packages:[
-      {name:'Skin Reset ×6',pct:88,color:'#2B7574'},
-      {name:'Anti-ageing ×4',pct:74,color:'#2B7574'},
-      {name:'Laser ×8',pct:47,color:'#B87F00'},
-      {name:'Bespoke Bronze ×4',pct:31,color:'#8B1A1A'},
-    ],
-  }
-};
+// ── INIT ──────────────────────────────────────────────────────────────
+document.getElementById('page-title').textContent = CLIENT.name + ' — CDI Dashboard'
+document.getElementById('top-clinic').textContent = CLIENT.name
+document.getElementById('top-updated').textContent = 'Updated ' + CLIENT.lastUpdated
 
-const PRAC_COLORS = {
-  'Dr Patel':   {bg:'#E0EFEE',txt:'#0E4040',initial:'DP'},
-  'Dr Okafor':  {bg:'#FAE8E8',txt:'#6B1515',initial:'DO'},
-  'Nurse Lena': {bg:'var(--amber-pale)',txt:'#7A5500',initial:'NL'},
-  'Dr Henshaw': {bg:'#F0E8F5',txt:'#4A1A6B',initial:'DH'},
-};
+// ── STATE ─────────────────────────────────────────────────────────────
+let period = 'monthly'
+let activePrac = null
+const charts = {}
 
-const PRAC_MEMOS = {
-  'Dr Patel':'Dr Patel is the clinic\'s strongest performer at £138/hr. Her treatment mix skews heavily toward high-margin injectables. Protect her diary — avoid scheduling lower-value consultations in her slots. Consider increasing her presence on Thursdays, currently the clinic\'s weakest day.',
-  'Dr Okafor':'Dr Okafor performs well at £104/hr, above clinic average. Her treatment mix is balanced. The main opportunity is increasing 1ml filler bookings over 0.5ml — the revenue-per-hour difference is significant. No immediate flags.',
-  'Nurse Lena':'Nurse Lena is below the clinic average at £71/hr. Her skin treatment focus means shorter revenue windows, but the opportunity is in upselling course packages (Skin Reset ×6) where she is the primary practitioner. Watch package completion rate — currently 88%, which is healthy.',
-  'Dr Henshaw':'Dr Henshaw is the priority flag. 100% diary utilisation but £50/hr — significantly below the £90/hr target. Her appointment mix is dominated by consultations (£50 flat) and 0.5ml filler. Action required: adjust booking defaults to shift 30% of slots toward Botox 3-area. Estimated recovery: £3,200/month.',
-};
+// ── HELPERS ───────────────────────────────────────────────────────────
+const d = () => DATA[period]
+const fmt = n => n >= 1000 ? '£' + (Math.round(n/100)/10) + 'k' : '£' + n
+const fmtFull = n => '£' + n.toLocaleString()
+const killChart = id => { if(charts[id]){ charts[id].destroy(); delete charts[id] } }
+const pc = n => PRAC_COLORS[n] || { bg:'#eee', txt:'#333', init:n.split(' ').map(w=>w[0]).join('').slice(0,2) }
 
-// ═══════════════ STATE ═══════════════════════════════
-let currentPeriod = 'monthly';
-let currentPrac   = null;
-const charts = {};
-
-// ═══════════════ UTILS ═══════════════════════════════
-function fmt(n){ return n >= 1000 ? '£'+Math.round(n/1000*10)/10+'k' : '£'+n; }
-function fmtFull(n){ return '£'+n.toLocaleString(); }
-function destroyChart(id){ if(charts[id]){ charts[id].destroy(); delete charts[id]; } }
-function d(){ return DATA[currentPeriod]; }
-
-// ═══════════════ PERIOD ══════════════════════════════
-function setPeriod(p){
-  currentPeriod = p;
-  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
-  // Re-render current page
-  const active = document.querySelector('.page.active').id.replace('page-','');
-  if(active === 'prac-detail' && currentPrac){
-    renderPracDetail(currentPrac);
-  } else {
-    renderPage(active);
-  }
+// ── PERIOD ────────────────────────────────────────────────────────────
+function setPeriod(p) {
+  period = p
+  document.querySelectorAll('.pt').forEach(t => t.classList.remove('on'))
+  event.target.classList.add('on')
+  const cur = document.querySelector('.pg.on').id.replace('pg-','')
+  if(cur === 'prac-detail' && activePrac) renderPracDetail(activePrac)
+  else renderPage(cur)
 }
 
-// ═══════════════ NAVIGATION ══════════════════════════
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  const nb = document.getElementById('nb-'+name);
-  if(nb) nb.classList.add('active');
-  // Breadcrumb
-  const labels = {overview:'Overview',practitioners:'Practitioners',treatments:'Treatments',packages:'Packages'};
-  document.getElementById('bc-main').textContent = labels[name]||'Overview';
-  document.getElementById('bc-sep').style.display='none';
-  document.getElementById('bc-sub').textContent='';
-  renderPage(name);
+// ── NAVIGATION ────────────────────────────────────────────────────────
+function nav(name) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'))
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'))
+  document.getElementById('pg-' + name).classList.add('on')
+  const nb = document.getElementById('nb-' + name)
+  if(nb) nb.classList.add('on')
+  const labels = { overview:'Overview', practitioners:'Practitioners', treatments:'Treatments', packages:'Packages' }
+  document.getElementById('top-page').textContent = labels[name] || 'Overview'
+  renderPage(name)
 }
 
-function renderPage(name){
-  if(name==='overview')      renderOverview();
-  if(name==='practitioners') renderPractitioners();
-  if(name==='treatments')    renderTreatments();
-  if(name==='packages')      renderPackages();
+function renderPage(name) {
+  if(name === 'overview')      renderOverview()
+  if(name === 'practitioners') renderPractitioners()
+  if(name === 'treatments')    renderTreatments()
+  if(name === 'packages')      renderPackages()
+  if(name === 'insights')      renderInsights()
 }
 
-// ═══════════════ OVERVIEW ════════════════════════════
-function renderOverview(){
-  renderKPIs('kpi-grid', d());
-  renderOvPracList();
-  renderPkgList('pkg-list', d().packages);
-  renderTrendChart('trend-chart', d().trend, 'Revenue trend');
-  document.getElementById('trend-sub').textContent = d().label;
-}
-
-function renderKPIs(containerId, data){
+// ── KPI CARDS ─────────────────────────────────────────────────────────
+function renderKPIs(containerId, data, prevRevPerHour) {
   document.getElementById(containerId).innerHTML = `
-    <div class="kpi maroon">
-      <div class="kpi-label">Total Revenue</div>
-      <div class="kpi-val">${fmtFull(data.revenue)}</div>
-      <div class="kpi-delta up">↑ 6.2% vs prior period</div>
-    </div>
-    <div class="kpi teal">
-      <div class="kpi-label">Avg Rev / Hour</div>
-      <div class="kpi-val">£${data.revPerHour}</div>
-      <div class="kpi-delta down">↓ £11 vs prior period</div>
-    </div>
-    <div class="kpi green">
-      <div class="kpi-label">Total Bookings</div>
-      <div class="kpi-val">${data.bookings}</div>
-      <div class="kpi-delta up">↑ 8 vs prior period</div>
-    </div>
-    <div class="kpi amber">
-      <div class="kpi-label">Client Retention</div>
-      <div class="kpi-val">${data.retention}%</div>
-      <div class="kpi-delta warn">⚠ Target is 80%</div>
-    </div>
-  `;
+    <div class="kpi c-maroon"><div class="kpi-lbl">Total revenue</div><div class="kpi-val">${fmtFull(data.revenue)}</div><div class="kpi-delta up">↑ 6.2% vs prior period</div></div>
+    <div class="kpi c-amber"><div class="kpi-lbl">Avg rev / hour</div><div class="kpi-val">£${data.revPerHour}</div><div class="kpi-delta dn">↓ £11 vs prior period</div></div>
+    <div class="kpi c-green"><div class="kpi-lbl">Total bookings</div><div class="kpi-val">${data.bookings}</div><div class="kpi-delta up">↑ 8 vs prior period</div></div>
+    <div class="kpi c-teal"><div class="kpi-lbl">Client retention</div><div class="kpi-val">${data.retention}%</div><div class="kpi-delta warn">⚠ Target is 80%</div></div>`
 }
 
-function renderOvPracList(){
-  const pdata = d().practitioners;
-  const names = Object.keys(pdata);
-  const maxRph = Math.max(...names.map(n=>pdata[n].rph));
-  const html = names.map(name=>{
-    const p = pdata[name]; const pc = PRAC_COLORS[name];
-    const pct = Math.round(p.rph/maxRph*100);
-    const badgeStyle = p.rph>=120?'background:#E4F2EC;color:#1A6B4A':p.rph>=90?'background:#E4EEF0;color:#12484C':p.rph>=70?'background:var(--amber-pale);color:var(--amber)':'background:var(--maroon-pale);color:var(--maroon-bright)';
-    const badge = p.rph>=120?'Top':p.rph>=90?'Good':p.rph>=70?'Review':'Flag';
-    const barColor = p.rph>=120?'#2B7574':p.rph>=90?'#2B7574':p.rph>=70?'#B87F00':'#8B1A1A';
-    return `<div class="prac-row" onclick="openPrac('${name}')">
-      <div class="prac-avatar" style="background:${pc.bg};color:${pc.txt}">${pc.initial}</div>
-      <div class="prac-name-label">${name}</div>
-      <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
-      <div class="prac-val-label">£${p.rph}</div>
-      <div class="prac-badge" style="${badgeStyle}">${badge}</div>
-      <div class="prac-arrow">›</div>
-    </div>`;
-  }).join('');
-  document.getElementById('ov-prac-list').innerHTML = html;
-}
-
-function renderPkgList(id, packages){
-  document.getElementById(id).innerHTML = packages.map(pkg=>`
-    <div class="pkg-item">
-      <div class="pkg-meta">
-        <span class="pkg-name">${pkg.name}</span>
-        <span class="pkg-pct" style="color:${pkg.color}">${pkg.pct}%</span>
-      </div>
-      <div class="pkg-bg"><div class="pkg-fill" style="width:${pkg.pct}%;background:${pkg.color}"></div></div>
-    </div>`).join('');
-}
-
-function renderTrendChart(canvasId, trend, label){
-  destroyChart(canvasId);
-  const ctx = document.getElementById(canvasId);
-  if(!ctx) return;
-  charts[canvasId] = new Chart(ctx,{
-    type:'line',
-    data:{
-      labels:trend.labels,
-      datasets:[{
-        label:'Revenue',data:trend.vals,
-        borderColor:'#8B1A1A',backgroundColor:'rgba(139,26,26,.08)',
-        borderWidth:2,pointBackgroundColor:'#8B1A1A',pointRadius:4,
-        tension:.35,fill:true
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}},
-      scales:{
-        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:11}}},
-        x:{grid:{display:false},ticks:{font:{size:11}}}
+// ── TREND CHART ───────────────────────────────────────────────────────
+function renderTrend(id, trend) {
+  killChart(id)
+  const ctx = document.getElementById(id)
+  if(!ctx) return
+  charts[id] = new Chart(ctx, {
+    type: 'line',
+    data: { labels: trend.labels, datasets: [{
+      label: 'Revenue', data: trend.vals,
+      borderColor: '#8B1A1A', backgroundColor: 'rgba(139,26,26,.07)',
+      borderWidth: 2, pointBackgroundColor: '#8B1A1A', pointRadius: 4,
+      tension: .35, fill: true
+    }]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => '£' + c.raw.toLocaleString() } } },
+      scales: {
+        y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£' + Math.round(v/1000) + 'k', font: { size: 11 } } },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
-  });
+  })
 }
 
-// ═══════════════ PRACTITIONERS ═══════════════════════
-function renderPractitioners(){
-  const pdata = d().practitioners;
-  document.getElementById('prac-period-label').textContent = d().label;
-  // Cards
-  const names = Object.keys(pdata);
-  document.getElementById('prac-cards').innerHTML = names.map(name=>{
-    const p = pdata[name]; const pc = PRAC_COLORS[name];
-    const flag = p.rph < 70 ? '<span class="tag tag-flag" style="margin-top:8px;display:inline-block">Flagged</span>' : p.rph < 90 ? '<span class="tag tag-warn" style="margin-top:8px;display:inline-block">Review</span>' : '<span class="tag tag-ok" style="margin-top:8px;display:inline-block">On track</span>';
+// ── MEMO ──────────────────────────────────────────────────────────────
+function renderMemo(id, memo) {
+  document.getElementById(id).innerHTML = `
+    <div class="memo-eye">${memo.eyebrow}</div>
+    <div class="memo-title">${memo.title}</div>
+    <div class="memo-body">${memo.body}</div>
+    <div class="memo-action">${memo.action}</div>`
+}
+
+// ── PKG LIST ──────────────────────────────────────────────────────────
+function renderPkgs(id, pkgs) {
+  document.getElementById(id).innerHTML = pkgs.map(p => `
+    <div class="pkg-item">
+      <div class="pkg-meta"><span class="pkg-name">${p.name}</span><span class="pkg-pct" style="color:${p.color}">${p.pct}%</span></div>
+      <div class="pkg-bg"><div class="pkg-fill" style="width:${p.pct}%;background:${p.color}"></div></div>
+    </div>`).join('')
+}
+
+// ── OVERVIEW ──────────────────────────────────────────────────────────
+function renderOverview() {
+  renderKPIs('ov-kpis', d())
+  renderAlerts('ov-alerts', 2) // show first 2 alerts on overview
+  renderMemo('ov-memo', MEMO)
+  renderOvPracs()
+  renderHeatmap()
+  document.getElementById('ov-trend-sub').textContent = d().label
+  renderTrend('ov-trend-chart', d().trend)
+  renderPkgs('ov-pkgs', d().packages)
+}
+
+function renderOvPracs() {
+  const pdata = d().practitioners
+  const names = Object.keys(pdata)
+  const maxRph = Math.max(...names.map(n => pdata[n].rph))
+  document.getElementById('ov-pracs').innerHTML = names.map(name => {
+    const p = pdata[name], c = pc(name)
+    const pct = Math.round(p.rph / maxRph * 100)
+    const barColor = p.rph >= 120 ? '#2B7574' : p.rph >= 90 ? '#2B7574' : p.rph >= 70 ? '#B87F00' : '#8B1A1A'
+    const [bs, bl] = p.rph >= 120 ? ['background:#E4F2EC;color:#1A6B4A','Top'] : p.rph >= 90 ? ['background:#E0EFEE;color:#12484C','Good'] : p.rph >= 70 ? ['background:var(--amber-pale);color:var(--amber)','Review'] : ['background:var(--red-pale);color:var(--crimson)','Flag']
+    return `<div class="pr" onclick="openPrac('${name}')">
+      <div class="pr-av" style="background:${c.bg};color:${c.txt}">${c.init}</div>
+      <div class="pr-name">${name}</div>
+      <div class="pr-bg"><div class="pr-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="pr-val">£${p.rph}</div>
+      <div class="pr-badge" style="${bs}">${bl}</div>
+      <div class="pr-arr">›</div>
+    </div>`
+  }).join('')
+  // note
+  const names2 = Object.keys(pdata)
+  const maxP = names2.reduce((a,n) => pdata[n].rph > pdata[a].rph ? n : a)
+  const minP = names2.reduce((a,n) => pdata[n].rph < pdata[a].rph ? n : a)
+  const gap = pdata[maxP].rph - pdata[minP].rph
+  document.getElementById('ov-prac-note').innerHTML = `${minP} has a full diary. Rev/hr gap vs ${maxP} = <span class="hl-red">£${gap}/hr</span>.`
+}
+
+function renderHeatmap() {
+  const days = ['Mon','Tue','Wed','Thu','Fri']
+  let html = '<div></div>' + days.map(d => `<div class="hm-hdr">${d}</div>`).join('')
+  for(const [band, vals] of Object.entries(HEATMAP)) {
+    html += `<div class="hm-lbl">${band}</div>`
+    html += vals.map(v => `<div class="hm-cell ${v >= 80 ? 'hm-hi' : v >= 65 ? 'hm-md' : 'hm-lo'}">${v}%</div>`).join('')
+  }
+  document.getElementById('ov-heatmap').innerHTML = html
+}
+
+// ── PRACTITIONERS ─────────────────────────────────────────────────────
+function renderPractitioners() {
+  const pdata = d().practitioners
+  document.getElementById('prac-period-lbl').textContent = d().label
+  document.getElementById('prac-cards').innerHTML = Object.keys(pdata).map(name => {
+    const p = pdata[name], c = pc(name)
+    const [ts, tl] = p.rph < 70 ? ['b-flag','Flagged'] : p.rph < 90 ? ['b-warn','Review'] : ['b-ok','On track']
     return `<div class="card" style="cursor:pointer" onclick="openPrac('${name}')">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-        <div class="prac-big-avatar" style="width:44px;height:44px;background:${pc.bg};color:${pc.txt};font-size:14px">${pc.initial}</div>
-        <div>
-          <div style="font-weight:600;font-size:14px;color:var(--maroon-deep)">${name}</div>
-          <div style="font-size:11px;color:var(--text-muted)">${p.specialty} · ${p.type}</div>
-        </div>
-        <div style="margin-left:auto;font-size:11px;color:var(--text-muted)">View profile ›</div>
+        <div class="pd-av" style="width:42px;height:42px;background:${c.bg};color:${c.txt};font-size:13px">${c.init}</div>
+        <div><div style="font-weight:600;font-size:14px;color:var(--maroon)">${name}</div><div style="font-size:11px;color:var(--muted)">${p.spec} · ${p.type}</div></div>
+        <span class="badge ${ts}" style="margin-left:auto">${tl}</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <div style="text-align:center;padding:10px 6px;background:var(--cream);border-radius:7px">
-          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Rev/Hr</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--maroon-deep)">£${p.rph}</div>
-        </div>
-        <div style="text-align:center;padding:10px 6px;background:var(--cream);border-radius:7px">
-          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Revenue</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--maroon-deep)">${fmt(p.rev)}</div>
-        </div>
-        <div style="text-align:center;padding:10px 6px;background:var(--cream);border-radius:7px">
-          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Bookings</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--maroon-deep)">${p.bookings}</div>
-        </div>
+        ${[['Rev/hr','£'+p.rph],['Revenue',fmt(p.rev)],['Bookings',p.bookings]].map(([l,v])=>`<div style="text-align:center;padding:9px 5px;background:var(--cream);border-radius:7px"><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">${l}</div><div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--maroon)">${v}</div></div>`).join('')}
       </div>
-      ${flag}
-    </div>`;
-  }).join('');
-  // Comparison chart
-  destroyChart('prac-compare-chart');
-  const ctx = document.getElementById('prac-compare-chart');
-  if(!ctx) return;
-  const rphs = names.map(n=>pdata[n].rph);
-  const colors = names.map(n=>pdata[n].rph<70?'#8B1A1A':pdata[n].rph<90?'#B87F00':'#2B7574');
-  charts['prac-compare-chart'] = new Chart(ctx,{
-    type:'bar',
-    data:{
-      labels:names,
-      datasets:[
-        {label:'Rev/Hr',data:rphs,backgroundColor:colors,borderRadius:5},
-        {label:'Target',data:names.map(()=>90),type:'line',borderColor:'rgba(0,0,0,.2)',borderDash:[4,4],borderWidth:1.5,pointRadius:0,fill:false}
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">View profile →</div>
+    </div>`
+  }).join('')
+  killChart('prac-compare-chart')
+  const ctx = document.getElementById('prac-compare-chart')
+  if(!ctx) return
+  const names = Object.keys(pdata)
+  charts['prac-compare-chart'] = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: names, datasets: [
+      { label: 'Rev/hr', data: names.map(n => pdata[n].rph), backgroundColor: names.map(n => pdata[n].rph < 70 ? '#8B1A1A' : pdata[n].rph < 90 ? '#B87F00' : '#2B7574'), borderRadius: 5 },
+      { label: 'Target', data: names.map(() => 90), type: 'line', borderColor: 'rgba(0,0,0,.18)', borderDash: [4,4], borderWidth: 1.5, pointRadius: 0, fill: false }
+    ]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: true, position: 'top', labels: { font: { size: 11 }, usePointStyle: true } }, tooltip: { callbacks: { label: c => c.dataset.label + ': £' + c.raw + '/hr' } } },
+      scales: { y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£'+v, font: { size: 11 } }, suggestedMax: 160 }, x: { grid: { display: false }, ticks: { font: { size: 11 } } } }
+    }
+  })
+}
+
+// ── PRAC DETAIL ───────────────────────────────────────────────────────
+function openPrac(name) {
+  activePrac = name
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'))
+  document.getElementById('pg-prac-detail').classList.add('on')
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'))
+  document.getElementById('nb-practitioners').classList.add('on')
+  document.getElementById('top-page').textContent = name
+  renderPracDetail(name)
+}
+
+function renderPracDetail(name) {
+  const p = d().practitioners[name], c = pc(name)
+  const target = 90
+  const diff = p.rph - target
+  const [ts, tl] = p.rph < 70 ? ['b-flag','Flagged — action needed'] : p.rph < 90 ? ['b-warn','Under review'] : ['b-ok','On track']
+  document.getElementById('pd-av').style.cssText = `background:${c.bg};color:${c.txt};width:52px;height:52px`
+  document.getElementById('pd-av').textContent = c.init
+  document.getElementById('pd-name').textContent = name
+  document.getElementById('pd-role').innerHTML = `${p.spec} · ${p.type} &nbsp;<span class="badge ${ts}">${tl}</span>`
+  document.getElementById('pd-kpis').innerHTML = `
+    <div class="kpi ${p.rph >= target ? 'c-green' : 'c-maroon'}"><div class="kpi-lbl">Revenue / hour</div><div class="kpi-val">£${p.rph}</div><div class="kpi-delta ${diff >= 0 ? 'up' : 'dn'}">${diff >= 0 ? '↑' : '↓'} £${Math.abs(diff)} vs target</div></div>
+    <div class="kpi c-teal"><div class="kpi-lbl">Total revenue</div><div class="kpi-val">${fmtFull(p.rev)}</div><div class="kpi-delta up">This period</div></div>
+    <div class="kpi c-teal"><div class="kpi-lbl">Bookings</div><div class="kpi-val">${p.bookings}</div><div class="kpi-delta up">This period</div></div>
+    <div class="kpi c-amber"><div class="kpi-lbl">Hours worked</div><div class="kpi-val">${p.hrs}h</div><div class="kpi-delta warn">${Math.round(p.rev/p.hrs)} avg per hr</div></div>`
+  document.getElementById('pd-trend-sub').textContent = d().label
+  const trend = d().trend
+  killChart('pd-trend-chart')
+  const ctx1 = document.getElementById('pd-trend-chart')
+  charts['pd-trend-chart'] = new Chart(ctx1, {
+    type: 'line',
+    data: { labels: trend.labels, datasets: [{ label: name, data: trend.vals.map(v => Math.round(v * (p.rev / d().revenue))), borderColor: '#8B1A1A', backgroundColor: 'rgba(139,26,26,.07)', borderWidth: 2, pointRadius: 4, tension: .35, fill: true }]},
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£' + Math.round(v/1000) + 'k', font: { size: 11 } } }, x: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  })
+  killChart('pd-mix-chart')
+  const mixKeys = Object.keys(p.mix), mixVals = Object.values(p.mix)
+  charts['pd-mix-chart'] = new Chart(document.getElementById('pd-mix-chart'), {
+    type: 'doughnut',
+    data: { labels: mixKeys, datasets: [{ data: mixVals, backgroundColor: ['#8B1A1A','#2B7574','#B87F00','#12484C','#C0292A'], borderWidth: 2, borderColor: '#fff' }]},
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, usePointStyle: true } }, tooltip: { callbacks: { label: c => '£' + c.raw.toLocaleString() } } } }
+  })
+  killChart('pd-days-chart')
+  charts['pd-days-chart'] = new Chart(document.getElementById('pd-days-chart'), {
+    type: 'bar',
+    data: { labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets: [{ data: p.days, backgroundColor: 'rgba(139,26,26,.15)', borderColor: '#8B1A1A', borderWidth: 1.5, borderRadius: 4 }]},
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { font: { size: 11 }, stepSize: 1 } }, x: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  })
+  const memo = PRAC_MEMOS[name] || 'No specific findings for this period.'
+  document.getElementById('pd-memo').innerHTML = `
+    <div class="memo-eye">CDI · Practitioner note · ${d().label}</div>
+    <div class="memo-title">${name} — Performance note</div>
+    <div class="memo-body" style="color:rgba(245,239,230,.78)">${memo}</div>`
+}
+
+// ── TREATMENTS ────────────────────────────────────────────────────────
+function renderTreatments() {
+  document.getElementById('treat-sub').textContent = d().label
+  const treats = d().treatments
+  killChart('treat-chart')
+  charts['treat-chart'] = new Chart(document.getElementById('treat-chart'), {
+    type: 'bar',
+    data: { labels: treats.map(t => t.name), datasets: [{ data: treats.map(t => t.rev), backgroundColor: treats.map(t => t.trend === 'drop' ? '#8B1A1A' : t.trend === 'warn' ? '#B87F00' : '#2B7574'), borderRadius: 4 }]},
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => '£' + c.raw.toLocaleString() } } }, scales: { x: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£' + Math.round(v/1000) + 'k', font: { size: 11 } } }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  })
+  killChart('treat-mix-chart')
+  charts['treat-mix-chart'] = new Chart(document.getElementById('treat-mix-chart'), {
+    type: 'doughnut',
+    data: { labels: treats.map(t => t.name), datasets: [{ data: treats.map(t => t.rev), backgroundColor: ['#8B1A1A','#6B1515','#2B7574','#12484C','#B87F00','#1A6B4A','#C0292A','#4A9E9C'], borderWidth: 2, borderColor: '#fff' }]},
+    options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'right', labels: { font: { size: 10 }, usePointStyle: true, boxWidth: 8 } }, tooltip: { callbacks: { label: c => '£' + c.raw.toLocaleString() } } } }
+  })
+  const tm = { ok: '<span class="chip chip-ok">Stable</span>', drop: '<span class="chip chip-dn">↓ Cold spot</span>', warn: '<span class="chip chip-wn">Review</span>' }
+  document.getElementById('treat-table').innerHTML = `
+    <thead><tr><th>Treatment</th><th>Bookings</th><th>Revenue</th><th>Avg/booking</th><th>Trend</th></tr></thead>
+    <tbody>${treats.map(t => `<tr><td class="tt-name">${t.name}</td><td>${t.bookings}</td><td>£${t.rev.toLocaleString()}</td><td>£${Math.round(t.rev/t.bookings)}</td><td>${tm[t.trend]}</td></tr>`).join('')}</tbody>`
+}
+
+// ── PACKAGES ──────────────────────────────────────────────────────────
+function renderPackages() {
+  const pkgs = [
+    { name:'Skin Reset ×6',     sold:5, sessions:30, used:26, pct:88, soldVal:8750,  delivVal:7700  },
+    { name:'Anti-ageing ×4',    sold:3, sessions:12, used:9,  pct:74, soldVal:2460,  delivVal:1845  },
+    { name:'Laser ×8',          sold:4, sessions:32, used:15, pct:47, soldVal:7920,  delivVal:3712  },
+    { name:'Bespoke Bronze ×4', sold:4, sessions:16, used:5,  pct:31, soldVal:4800,  delivVal:1500  },
+  ]
+  const colors = pkgs.map(p => p.pct >= 70 ? '#2B7574' : p.pct >= 50 ? '#B87F00' : '#8B1A1A')
+  killChart('pkg-chart')
+  charts['pkg-chart'] = new Chart(document.getElementById('pkg-chart'), {
+    type: 'bar',
+    data: { labels: pkgs.map(p => p.name), datasets: [
+      { label: 'Sell-through %', data: pkgs.map(p => p.pct), backgroundColor: colors, borderRadius: 5 },
+      { label: 'Target (75%)', data: pkgs.map(() => 75), type: 'line', borderColor: 'rgba(0,0,0,.18)', borderDash: [4,4], borderWidth: 1.5, pointRadius: 0, fill: false }
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { font: { size: 11 }, usePointStyle: true } }, tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '%' } } }, scales: { y: { max: 100, grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => v + '%', font: { size: 11 } } }, x: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  })
+  killChart('pkg-rev-chart')
+  charts['pkg-rev-chart'] = new Chart(document.getElementById('pkg-rev-chart'), {
+    type: 'bar',
+    data: { labels: pkgs.map(p => p.name), datasets: [
+      { label: 'Sold value', data: pkgs.map(p => p.soldVal), backgroundColor: 'rgba(139,26,26,.18)', borderColor: '#8B1A1A', borderWidth: 1.5, borderRadius: 4 },
+      { label: 'Delivered value', data: pkgs.map(p => p.delivVal), backgroundColor: 'rgba(43,117,116,.7)', borderRadius: 4 }
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'top', labels: { font: { size: 11 }, usePointStyle: true } }, tooltip: { callbacks: { label: c => '£' + c.raw.toLocaleString() } } }, scales: { y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£' + Math.round(v/1000) + 'k', font: { size: 11 } } }, x: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  })
+  document.getElementById('pkg-table').innerHTML = `
+    <thead><tr><th>Package</th><th>Sold</th><th>Sessions total</th><th>Used</th><th>Completion</th><th>Sold value</th><th>Status</th></tr></thead>
+    <tbody>${pkgs.map(p => {
+      const [cs, cl] = p.pct >= 70 ? ['chip-ok','On track'] : p.pct >= 50 ? ['chip-wn','Review'] : ['chip-dn','⚠ Flagged']
+      return `<tr><td class="tt-name">${p.name}</td><td>${p.sold}</td><td>${p.sessions}</td><td>${p.used}</td><td><span class="chip ${cs}">${p.pct}%</span></td><td>£${p.soldVal.toLocaleString()}</td><td><span class="chip ${cs}">${cl}</span></td></tr>`
+    }).join('')}</tbody>`
+}
+
+// ── ALERTS ────────────────────────────────────────────────────────────
+function renderAlerts(id, limit) {
+  const show = limit ? ALERTS.slice(0, limit) : ALERTS
+  const el = document.getElementById(id)
+  if(!el) return
+  el.innerHTML = show.map(a => `
+    <div class="alert-item a-${a.severity}">
+      <div class="alert-dot ${a.severity}"></div>
+      <div style="flex:1">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-body">${a.body}</div>
+      </div>
+      <span class="alert-tag at-${a.severity}">${a.tag}</span>
+    </div>`).join('')
+}
+
+// ── INSIGHTS ──────────────────────────────────────────────────────────
+function renderInsights() {
+  const names = Object.keys(CONVERSION)
+
+  // Alert count badge
+  const el = document.getElementById('ins-alert-count')
+  if(el) el.textContent = `${ALERTS.filter(a=>a.severity==='red').length} urgent`
+  renderAlerts('ins-alerts')
+
+  // Conversion bars
+  const maxConv = Math.max(...names.map(n => CONVERSION[n].convRate))
+  document.getElementById('ins-conv').innerHTML = names.map(name => {
+    const c = CONVERSION[name], col = pc(name)
+    const pct = c.convRate
+    const barColor = pct >= 75 ? '#2B7574' : pct >= 60 ? '#B87F00' : '#8B1A1A'
+    const [bs, bl] = pct >= 75 ? ['background:var(--green-pale);color:var(--green)','High'] :
+                     pct >= 60 ? ['background:var(--amber-pale);color:var(--amber)','Mid'] :
+                                 ['background:var(--red-pale);color:var(--crimson)','Low']
+    return `<div class="conv-row">
+      <div class="conv-name">${name}</div>
+      <div class="conv-bg"><div class="conv-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="conv-pct" style="color:${barColor}">${pct}%</div>
+      <div class="conv-badge" style="${bs}">${bl}</div>
+    </div>`
+  }).join('')
+
+  // New vs returning stacked bar chart
+  killChart('ins-split-chart')
+  charts['ins-split-chart'] = new Chart(document.getElementById('ins-split-chart'), {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [
+        { label: 'Returning clients', data: names.map(n => CONVERSION[n].newVsReturn[1]),
+          backgroundColor: '#2B7574', borderRadius: 0 },
+        { label: 'New clients', data: names.map(n => CONVERSION[n].newVsReturn[0]),
+          backgroundColor: 'rgba(139,26,26,.5)', borderRadius: 0 },
       ]
     },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': £'+c.raw+'/hr'}}},
-      scales:{
-        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>'£'+v,font:{size:11}},suggestedMax:160},
-        x:{grid:{display:false},ticks:{font:{size:11}}}
+    options: {
+      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: {
+        legend: { display: true, position: 'top', labels: { font: { size: 11 }, usePointStyle: true } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '%' } }
+      },
+      scales: {
+        x: { stacked: true, max: 100, grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => v+'%', font: { size: 11 } } },
+        y: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
-  });
-}
+  })
 
-// ═══════════════ PRAC DETAIL ═════════════════════════
-function openPrac(name){
-  currentPrac = name;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-prac-detail').classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('nb-practitioners').classList.add('active');
-  document.getElementById('bc-main').textContent='Practitioners';
-  document.getElementById('bc-sep').style.display='';
-  document.getElementById('bc-sub').textContent=name;
-  renderPracDetail(name);
-}
+  // LTV list
+  const sorted = [...names].sort((a,b) => CONVERSION[b].ltv - CONVERSION[a].ltv)
+  document.getElementById('ins-ltv').innerHTML = sorted.map(name => {
+    const c = CONVERSION[name], col = pc(name)
+    const flag = c.ltv < 600 ? '<span style="font-size:10px;color:var(--crimson);font-weight:600">Below average</span>' :
+                 c.ltv < 900 ? '<span style="font-size:10px;color:var(--amber);font-weight:600">Average</span>' :
+                               '<span style="font-size:10px;color:var(--green);font-weight:600">Strong</span>'
+    return `<div class="ltv-row">
+      <div>
+        <div class="ltv-label">${name}</div>
+        <div class="ltv-sub">${flag}</div>
+      </div>
+      <div class="ltv-val">£${c.ltv.toLocaleString()}</div>
+    </div>`
+  }).join('')
 
-function renderPracDetail(name){
-  const p = d().practitioners[name];
-  const pc = PRAC_COLORS[name];
-  const flag = p.rph<70?'Flagged — priority action':p.rph<90?'Under review':'On track';
-  const flagClass = p.rph<70?'tag-flag':p.rph<90?'tag-warn':'tag-ok';
-  // Header
-  document.getElementById('pd-avatar').style.cssText=`background:${pc.bg};color:${pc.txt}`;
-  document.getElementById('pd-avatar').textContent=pc.initial;
-  document.getElementById('pd-name').textContent=name;
-  document.getElementById('pd-role').innerHTML=`${p.specialty} · ${p.type} &nbsp;<span class="tag ${flagClass}">${flag}</span>`;
-  // KPIs
-  const target = {rph:p.specialty==='Injectables'?120:90};
-  const diff = p.rph - target.rph;
-  document.getElementById('pd-kpi-grid').innerHTML=`
-    <div class="kpi ${p.rph>=target.rph?'green':'maroon'}">
-      <div class="kpi-label">Revenue / Hour</div>
-      <div class="kpi-val">£${p.rph}</div>
-      <div class="kpi-delta ${diff>=0?'up':'down'}">${diff>=0?'↑':'↓'} £${Math.abs(diff)} vs target</div>
-    </div>
-    <div class="kpi teal">
-      <div class="kpi-label">Total Revenue</div>
-      <div class="kpi-val">${fmtFull(p.rev)}</div>
-      <div class="kpi-delta up">This period</div>
-    </div>
-    <div class="kpi teal">
-      <div class="kpi-label">Bookings</div>
-      <div class="kpi-val">${p.bookings}</div>
-      <div class="kpi-delta up">This period</div>
-    </div>
-    <div class="kpi amber">
-      <div class="kpi-label">Hours Worked</div>
-      <div class="kpi-val">${p.hrs}h</div>
-      <div class="kpi-delta warn">${Math.round(p.rev/p.hrs*10)/10} avg per hr</div>
-    </div>`;
-  document.getElementById('pd-trend-sub').textContent = d().label;
-  // Trend chart
-  const trendData = d().trend;
-  destroyChart('pd-trend-chart');
-  const ctx1=document.getElementById('pd-trend-chart');
-  charts['pd-trend-chart'] = new Chart(ctx1,{
-    type:'line',
-    data:{labels:trendData.labels,datasets:[{
-      label:name,data:trendData.vals.map(v=>Math.round(v*(p.rev/d().revenue))),
-      borderColor:'#8B1A1A',backgroundColor:'rgba(139,26,26,.08)',
-      borderWidth:2,pointRadius:4,tension:.35,fill:true
-    }]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}},
-      scales:{y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:11}}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
-  });
-  // Mix chart
-  destroyChart('pd-mix-chart');
-  const ctx2=document.getElementById('pd-mix-chart');
-  const mixKeys=Object.keys(p.mix); const mixVals=Object.values(p.mix);
-  charts['pd-mix-chart'] = new Chart(ctx2,{
-    type:'doughnut',
-    data:{labels:mixKeys,datasets:[{data:mixVals,backgroundColor:['#8B1A1A','#2B7574','#B87F00','#12484C','#C0292A'],borderWidth:2,borderColor:'#fff'}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}}}
-  });
-  // Days chart
-  destroyChart('pd-days-chart');
-  const ctx3=document.getElementById('pd-days-chart');
-  charts['pd-days-chart'] = new Chart(ctx3,{
-    type:'bar',
-    data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{data:p.days,backgroundColor:'rgba(139,26,26,.15)',borderColor:'#8B1A1A',borderWidth:1.5,borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:11},stepSize:1}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
-  });
-  // Memo
-  document.getElementById('pd-memo').innerHTML=`
-    <div class="memo-eye">CDI · Practitioner insight · ${d().label}</div>
-    <div class="memo-title">${name} — Performance note</div>
-    <div class="memo-body">${PRAC_MEMOS[name]}</div>
-  `;
-}
-
-// ═══════════════ TREATMENTS ══════════════════════════
-function renderTreatments(){
-  document.getElementById('treat-sub').textContent = d().label;
-  const treats = d().treatments;
-  // Bar chart
-  destroyChart('treat-chart');
-  const ctx1=document.getElementById('treat-chart');
-  charts['treat-chart'] = new Chart(ctx1,{
-    type:'bar',
-    data:{
-      labels:treats.map(t=>t.name),
-      datasets:[{data:treats.map(t=>t.rev),backgroundColor:treats.map(t=>t.trend==='drop'?'#8B1A1A':t.trend==='warn'?'#B87F00':'#2B7574'),borderRadius:4}]
+  // Scatter: conversion rate vs rev per hour
+  killChart('ins-scatter-chart')
+  const pdata = d().practitioners
+  const scatterData = names.map(name => ({
+    x: CONVERSION[name].convRate,
+    y: pdata[name] ? pdata[name].rph : 0,
+    label: name
+  }))
+  charts['ins-scatter-chart'] = new Chart(document.getElementById('ins-scatter-chart'), {
+    type: 'scatter',
+    data: {
+      datasets: names.map((name, i) => ({
+        label: name,
+        data: [{ x: CONVERSION[name].convRate, y: pdata[name]?.rph || 0 }],
+        backgroundColor: ['#2B7574','#8B1A1A','#B87F00','#4A1A6B'][i],
+        pointRadius: 8, pointHoverRadius: 11
+      }))
     },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}},
-      scales:{x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:11}}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
-  });
-  // Doughnut
-  destroyChart('treat-mix-chart');
-  const ctx2=document.getElementById('treat-mix-chart');
-  charts['treat-mix-chart'] = new Chart(ctx2,{
-    type:'doughnut',
-    data:{labels:treats.map(t=>t.name),datasets:[{data:treats.map(t=>t.rev),backgroundColor:['#8B1A1A','#6B1515','#2B7574','#12484C','#B87F00','#1A6B4A','#C0292A','#4A9E9C'],borderWidth:2,borderColor:'#fff'}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'right',labels:{font:{size:10},usePointStyle:true,boxWidth:8}},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}}}
-  });
-  // Table
-  const trendMap={ok:'<span class="trend-chip tc-ok">Stable</span>',drop:'<span class="trend-chip tc-drop">↓ Cold spot</span>',warn:'<span class="trend-chip tc-warn">Review</span>'};
-  document.getElementById('treat-table').innerHTML=`
-    <thead><tr><th>Treatment</th><th>Bookings</th><th>Revenue</th><th>Avg/Booking</th><th>Trend</th></tr></thead>
-    <tbody>${treats.map(t=>`<tr>
-      <td class="t-name">${t.name}</td>
-      <td>${t.bookings}</td>
-      <td>£${t.rev.toLocaleString()}</td>
-      <td>£${Math.round(t.rev/t.bookings)}</td>
-      <td>${trendMap[t.trend]}</td>
-    </tr>`).join('')}</tbody>`;
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: 'top', labels: { font: { size: 10 }, usePointStyle: true } },
+        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.raw.x}% conv · £${c.raw.y}/hr` } }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Conversion rate %', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => v+'%', font: { size: 11 } } },
+        y: { title: { display: true, text: 'Rev/hr £', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,.04)' }, ticks: { callback: v => '£'+v, font: { size: 11 } } }
+      }
+    }
+  })
 }
 
-// ═══════════════ PACKAGES ════════════════════════════
-function renderPackages(){
-  const pkgs = [
-    {name:'Skin Reset ×6',sold:5,sessions:30,used:26,pct:88,soldVal:8750,deliveredVal:7700},
-    {name:'Anti-ageing ×4',sold:3,sessions:12,used:9,pct:74,soldVal:2460,deliveredVal:1845},
-    {name:'Laser ×8',sold:4,sessions:32,used:15,pct:47,soldVal:7920,deliveredVal:3712},
-    {name:'Bespoke Bronze ×4',sold:4,sessions:16,used:5,pct:31,soldVal:4800,deliveredVal:1500},
-  ];
-  const colors = pkgs.map(p=>p.pct>=70?'#2B7574':p.pct>=50?'#B87F00':'#8B1A1A');
-  destroyChart('pkg-chart');
-  const ctx1=document.getElementById('pkg-chart');
-  charts['pkg-chart'] = new Chart(ctx1,{
-    type:'bar',
-    data:{labels:pkgs.map(p=>p.name),datasets:[{label:'Sell-through %',data:pkgs.map(p=>p.pct),backgroundColor:colors,borderRadius:5},{label:'Target (75%)',data:pkgs.map(()=>75),type:'line',borderColor:'rgba(0,0,0,.2)',borderDash:[4,4],borderWidth:1.5,pointRadius:0,fill:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
-      scales:{y:{max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>v+'%',font:{size:11}}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
-  });
-  destroyChart('pkg-rev-chart');
-  const ctx2=document.getElementById('pkg-rev-chart');
-  charts['pkg-rev-chart'] = new Chart(ctx2,{
-    type:'bar',
-    data:{labels:pkgs.map(p=>p.name),datasets:[
-      {label:'Sold value',data:pkgs.map(p=>p.soldVal),backgroundColor:'rgba(139,26,26,.2)',borderColor:'#8B1A1A',borderWidth:1.5,borderRadius:4},
-      {label:'Delivered value',data:pkgs.map(p=>p.deliveredVal),backgroundColor:'rgba(43,117,116,.7)',borderRadius:4},
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:c=>'£'+c.raw.toLocaleString()}}},
-      scales:{y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:11}}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
-  });
-  document.getElementById('pkg-table').innerHTML=`
-    <thead><tr><th>Package</th><th>Sold</th><th>Sessions Total</th><th>Sessions Used</th><th>Completion</th><th>Sold Value</th><th>Status</th></tr></thead>
-    <tbody>${pkgs.map(p=>{
-      const s=p.pct>=70?'tc-ok':p.pct>=50?'tc-warn':'tc-drop';
-      const sl=p.pct>=70?'On track':p.pct>=50?'Review':'⚠ Flagged';
-      return `<tr>
-        <td class="t-name">${p.name}</td><td>${p.sold}</td><td>${p.sessions}</td><td>${p.used}</td>
-        <td><span class="trend-chip ${s}">${p.pct}%</span></td>
-        <td>£${p.soldVal.toLocaleString()}</td>
-        <td><span class="trend-chip ${s}">${sl}</span></td>
-      </tr>`;}).join('')}</tbody>`;
-}
-
-// ═══════════════ INIT ════════════════════════════════
-renderOverview();
+// ── BOOT ──────────────────────────────────────────────────────────────
+renderOverview()
 </script>
 </body>
 </html>
