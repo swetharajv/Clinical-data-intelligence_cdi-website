@@ -221,13 +221,30 @@
         </div>
 
         <!-- Actual video — relative path works locally and on Netlify -->
-        <video
-          controls
-          preload="metadata"
-          style="width:100%;display:block;background:#100303"
-        >
-          <source src="cdi_demo_video.mp4" type="video/mp4">
-        </video>
+        <div style="position:relative">
+          <video
+            id="demo-video"
+            muted
+            playsinline
+            preload="auto"
+            controls
+            style="width:100%;display:block;background:#100303"
+          >
+            <source src="cdi_demo_video.mp4" type="video/mp4">
+          </video>
+          <!-- Unmute button — appears top right corner -->
+          <button id="unmute-btn" onclick="toggleMute()" style="
+            position:absolute;top:12px;right:12px;
+            background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);
+            color:white;border-radius:20px;padding:5px 12px;
+            font-size:11px;font-family:Inter,sans-serif;font-weight:500;
+            cursor:pointer;display:flex;align-items:center;gap:5px;
+            backdrop-filter:blur(4px);transition:background .15s;
+          ">
+            <svg id="mute-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <span id="mute-label">Tap to unmute</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -686,8 +703,42 @@
 </footer>
 
 <script>
+  // ── VIDEO: autoplay when scrolled into view, pause when out ──────────
+  const video = document.getElementById('demo-video');
+  if (video) {
+    // Play/pause based on scroll visibility
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {}); // catch autoplay block silently
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.4 }); // trigger when 40% of video is visible
+    observer.observe(video);
+  }
+
+  // ── UNMUTE TOGGLE ────────────────────────────────────────────────────
+  function toggleMute() {
+    if (!video) return;
+    video.muted = !video.muted;
+    const icon = document.getElementById('mute-icon');
+    const label = document.getElementById('mute-label');
+    if (video.muted) {
+      label.textContent = 'Tap to unmute';
+      icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    } else {
+      label.textContent = 'Mute';
+      icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+    }
+  }
+
+  // ── NAVBAR SCROLL SHADOW ─────────────────────────────────────────────
   const navbar=document.getElementById('navbar');
   window.addEventListener('scroll',()=>{ navbar.classList.toggle('nav-scrolled',window.scrollY>10); });
+
+  // ── EMAIL OBFUSCATION ────────────────────────────────────────────────
   (function(){
     var e='contact'+'\u0040'+'clinicaldataintelligence'+'\u002e'+'uk';
     var cta=document.getElementById('cta-email-link');
